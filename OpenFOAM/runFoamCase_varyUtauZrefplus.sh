@@ -48,11 +48,11 @@ for ((i=0; i<${#zplusref[@]}; i++)); do
     logfile="logs/run_${zplusref[$i]}.log"
     echo "Simulation I/O logged to file $logfile"
     # Decompose the case again
-    decomposePar -force > logs/decomposePar.log
+    decomposePar -force 2>&1 logs/decomposePar.log
     # Run the case
-    mpirun -np $nprocs simpleFoam -parallel > "$logfile"
+    mpirun -np $nprocs simpleFoam -parallel 2>&1 "$logfile"
     # Reconstruct the simulation
-    reconstructPar -latestTime > logs/reconstruct.log
+    reconstructPar -latestTime 2>&1 logs/reconstruct.log
     # Move the results to a results folder
     outputFolderName="results/SF${zplusref[$i]}"
     echo -e "Results for this case now moved to -- ${RED} $outputFolderName ${RESET}"
