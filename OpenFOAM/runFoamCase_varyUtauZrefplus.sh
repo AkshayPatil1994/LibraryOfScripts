@@ -61,7 +61,7 @@ for ((i=0; i<${#zplusref[@]}; i++)); do
     decomposePar -force > logs/decomposePar.log
     # Set the name of the logfile to log the run I/O
     logfile="logs/run_${zplusref[$i]}.log"
-    echo "Running the case -- Simulation I/O logged to file $logfile"    # Run the case
+    echo "Running t̀he case -- Simulation I/O logged to file $logfile"    # Run the case
     mpirun -np $nprocs simpleFoam -parallel > "$logfile"
     # Reconstruct the simulation
     echo "Reconstructing the latest time....."
