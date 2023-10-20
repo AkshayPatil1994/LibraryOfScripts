@@ -30,9 +30,6 @@ fi
 startTime=`date +%s`
 # Query and change the number of iterations in system/controlDict
 echo "Editing the endTime and writeInterval in system/controlDict...."
-#sed_command="s/endTime\(.*endTime\)/endTime\endTime	${totalIterations};/"
-#sed_command="s/endTime[[:space:]]*[0-9]*;/endTime         ${totalIterations};/"
-#sed_command="0,/endTime[[:space:]]*[0-9]*;/s//endTime         ${totalIterations};/"
 sed_command="s/^\(endTime[[:space:]]*\)[0-9]*;/\1${totalIterations};/"
 eval "sed -i \"$sed_command\" system/controlDict"
 sed_command="s/writeInterval[[:space:]]*[0-9]*;/writeInterval         ${totalIterations};/"
