@@ -1,35 +1,26 @@
-# Request argument from the user for case index
-fileInt = 200
-# Set the plot output type
-#set term png size 1200,1200
-#set output "residualHistory.png"
-set term qt
-# Set Plot Formatting Parameters
-set title "Residual History" font "Times New Roman,20"
-set key outside 
-set size square
-set grid
-set border lw 1.5
-#set logscale x
-set logscale y
-set xlabel "Interation Count" font "Times New Roman,15"
-set ylabel "Normalised Residuals" font "Times New Roman,15"
-# Set the style and color for each data file
-set style data linespoints
-set style line 1 lc rgb "red" ps 1
-set style line 2 lc rgb "blue" ps 1
-set style line 3 lc rgb "green" ps 1
-set style line 4 lc rgb "orange" ps 1
-set style line 5 lc rgb "purple" ps 1
-set style line 6 lc rgb "black" ps 1
-# Setting ticks
-set ytics 1e-6, 1e-1, 1e-1
-
-# Plot the data
-plot sprintf('residuals/res_p_%d',fileInt) title "Pressure" ls 1, \
-     sprintf('residuals/res_Ux_%d',fileInt) title "Ux" ls 2, \
-     sprintf('residuals/res_Uy_%d',fileInt) title "Uy" ls 3, \
-     sprintf('residuals/res_Uz_%d',fileInt) title "Uz" ls 4, \
-     sprintf('residuals/res_k_%d',fileInt) title "k" ls 5, \
-     sprintf('residuals/res_epsilon_%d',fileInt) title "epsilon" ls 6, \
-#    sprintf('residuals/res_omega_'.fileInt title "omega" ls 6, \
+#!/bin/bash
+# Force check if `plots` directory exists
+if [ -d "plots" ]; then
+	echo "Plots directory already exists"
+else
+	echo "Generating plots directory to save figures..."
+	mkdir plots
+fi
+# Name of all the turbulence closures
+turbClosure=("kOmegaSST" "kEpsilon")
+retauarray=("200" "400" "600" "800" "1000" "1500" "2000" "2500" "3000" "5000")
+# Grep and edit the plotting file for each variable
+lenClosure=${#turbClosure[@]}
+lenretau=${#retauarray[@]}
+for ((i=0;i<${lenClosure};i++)); do
+    for ((j=0;j<${lenretau};j++)); do
+	# Edit the Retau value
+        sed_command='s/fileInt=*[0-9]*[[:space:]]# Location/fileInt=${retauarray[$j]}	# Location/'
+        eval "sed -i \"$sed_command\" plotres.gp"
+	# Edit the closure name
+	sed_command='s/turbClos=\"[^\"]*\"[[:space:]]# turbModel/turbClos=\"${turbClosure[$i]}\"	# turbModel/'
+	eval "sed -i \"$sed_command\" plotres.gp"
+        gnuplot plotres.gp
+        echo "Done with case Retau:${retauarray[$j]} and Closure:${turbClosure[$i]}"
+    done
+done
