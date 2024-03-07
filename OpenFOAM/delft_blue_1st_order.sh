@@ -1,18 +1,21 @@
 #!/bin/bash
 
-#SBATCH --job-name="lod1p2TUD"		      # Name of the job for checking
-#SBATCH --time=24:00:00			            # Wall clock time requested hh:mm:ss
-#SBATCH --partition=compute-p2		      # Which partition?
-#SBATCH --account=<accountname>       # Account to charge
-#SBATCH --mem=50G			                  # Total Memory required to run the job
-#SBATCH -n 48                         # Number of CPU's
+#SBATCH --job-name="2p2-2ndord"		# Name of the job for checking
+#SBATCH --time=55:00:00			# Wall clock time requested
+#SBATCH --partition=compute-p2		# Which partition?
+#SBATCH --account=research-abe-ur	# Account to charge
+#SBATCH --nodes=1			# Number of nodes
+#SBATCH --tasks=64			# Number of tasks
+#SBATCH --cpus-per-task=1		# Number of cpu per task
+#SBATCH --exclusive			# Get the exclusive node
+#SBATCH --mem=0				# Get all the memory
 
 # Load the right modules
 module load 2023r1 openmpi
 # Source the openfoam environment
 source /home/apatil5/OpenFOAM-7/etc/bashrc
 ### Run all the cases ###
-nProcs=48	# Number of processors used for simpleFoam
+nProcs=64	# Number of processors used for simpleFoam
 verbose=0	# Would you like to print extra information?
 simEndTime=1200	# Simulation end time
 casetype="1st_order"	# Type of simulation
