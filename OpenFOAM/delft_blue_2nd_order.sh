@@ -7,7 +7,8 @@
 #SBATCH --nodes=1			# Number of nodes
 #SBATCH --tasks=64			# Number of tasks
 #SBATCH --cpus-per-task=1		# Number of cpu per task
-#SBATCH --exclusive			# Get the exclusive node
+### NOTE: Exclusive node allocation no longer required for partition 2
+#SBATCH --exclusive			# Get the exclusive node 
 #SBATCH --mem=0				# Get all the memory
 
 # Load the right modules
