@@ -13,6 +13,15 @@ nProcs=64		# Number of processors used for simpleFoam
 verbose=1		# Would you like to print extra information?
 simEndTime=1200		# Simulation end time
 casetype="1st_order"	# Type of simulation
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#   NOTE: --mem=100GB depends on the mesh size. For a mesh with approx. 40 Million grid     #
+#   OpenFOAM will need a minimum of 64GB, sometimes more, sometimes less, depending on the  #
+#   mesh complexity and kind of solvers used (1st order vs. 2nd order). Usually, 2nd order  #
+#   solver will need slightly more memory due to the larger computational stencil.          #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 #	Do not touch beyond this line unless you are absolutely sure of what		  #
 #       you are doing									  #
