@@ -1,14 +1,19 @@
 #!/bin/bash
 
 #SBATCH --job-name="2p2-2ndord"		# Name of the job for checking
-#SBATCH --time=55:00:00			# Wall clock time requested
+#SBATCH --time=48:00:00			# Wall clock time requested
 #SBATCH --partition=compute-p2		# Which partition?
 #SBATCH --account=research-abe-ur	# Account to charge
-#SBATCH --nodes=1			# Number of nodes
 #SBATCH --tasks=64			# Number of tasks
 #SBATCH --cpus-per-task=1		# Number of cpu per task
-#SBATCH --exclusive			# Get the exclusive node
-#SBATCH --mem=0				# Get all the memory
+#SBATCH --mem=100GB			# Get all the memory
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#   NOTE: --mem=100GB depends on the mesh size. For a mesh with approx. 40 Million grid
+#   OpenFOAM will need a minimum of 64GB, sometimes more, sometimes less, depending on the
+#   mesh complexity and kind of solvers used (1st order vs. 2nd order). Usually, 2nd order
+#   solver will need slightly more memory due to the larger computational stencil.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 # Load the right modules
 module load 2023r1 openmpi
