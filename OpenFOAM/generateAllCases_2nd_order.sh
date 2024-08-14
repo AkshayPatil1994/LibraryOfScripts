@@ -1,10 +1,10 @@
 #!/bin/bash
 # User input parameters
 startAngle=1			# Starting angle of the simulations
-interval=1			    # Interval between each case
-endAngle=360			  # Ending angle of the simulations
+interval=1			# Interval between each case
+endAngle=2			# Ending angle of the simulations
 endTimeResults='1200'			# End time of the 1st order simulations
-resultsLocation='absolute_path_from_where_files_are_copied/'	# Location of the results 2 copy from
+resultsLocation='/beegfs/projects/refmap/denHaag/lod1p2/results'	# Location of the results 2 copy from
 ##################################################################################
 # DO NOT TOUCH THINGS BELOW UNLESS YOU ARE ABOSLUTELY SURE OF WHAT YOU ARE DOING #
 ##################################################################################
@@ -27,10 +27,12 @@ for ((folderName=${startAngle};folderName<=${endAngle};folderName+=${interval}))
     cat orgCase/0/include/ABLConditions | grep "// Angle of attack"
     # Change the name of the case in the slurm script
     sed_command="s/--job-name=\"[^\"]*\"/--job-name=\"a${simangles[$iterator]}l1p2\"/"
-    sed -i "$sed_command" orgCase/submit.sh
-    cat orgCase/submit.sh | grep "job-name"
+    sed -i "$sed_command" orgCase/submit_2ndorder.sh
+    cat orgCase/submit_2ndorder.sh | grep "job-name"
     # Copy the files from the orgCase
-    rsync -rhP orgCase/{0,system,submit.sh} "${folderName}"/
+    echo "Copying the required files ...."
+    rsync -rh orgCase/{0,system,submit_2ndorder.sh} "${folderName}"/
+    echo "Done with copying ...."
     mkdir "${folderName}"/constant
     cp -rs "$(pwd)"/orgCase/constant/* "${folderName}"/constant/
     # Copy results from the results folder
@@ -38,7 +40,7 @@ for ((folderName=${startAngle};folderName<=${endAngle};folderName+=${interval}))
     # Submit the job
     cd "${folderName}"
     echo "Submitting job from dir: $(pwd)"
-    sbatch submit.sh
+    #sbatch submit_2ndorder.sh
     # Move back up so that the right path can be used to copy and paste things
     cd ..
     echo "Done with $folderName ....."
