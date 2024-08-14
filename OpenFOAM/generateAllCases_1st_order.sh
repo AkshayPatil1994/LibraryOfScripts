@@ -1,8 +1,8 @@
 #!/bin/bash
 # User input parameters
 startAngle=1			# Starting angle of the simulations
-interval=1			  # Interval between each case
-endAngle=360			# ending angle of the simulations
+interval=1			# Interval between each case
+endAngle=2			# ending angle of the simulations
 ##################################################################################
 # DO NOT TOUCH THINGS BELOW UNLESS YOU ARE ABOSLUTELY SURE OF WHAT YOU ARE DOING #
 ##################################################################################
@@ -25,16 +25,19 @@ for ((folderName=${startAngle};folderName<=${endAngle};folderName+=${interval}))
     cat orgCase/0/include/ABLConditions | grep "// Angle of attack"
     # Change the name of the case in the slurm script
     sed_command="s/--job-name=\"[^\"]*\"/--job-name=\"a${simangles[$iterator]}l1p2\"/"
-    sed -i "$sed_command" orgCase/submit.sh
-    cat orgCase/submit.sh | grep "job-name"
+    sed -i "$sed_command" orgCase/submit_1storder.sh
+    cat orgCase/submit_1storder.sh | grep "job-name"
     # Copy the files from the orgCase
-    rsync -rhP orgCase/{0,system,submit.sh} "${folderName}"/
+    echo "Copying the required files ...."
+    rsync -r orgCase/{0,system,submit_1storder.sh} "${folderName}"/
+    echo "Done copying files ...."
     mkdir "${folderName}"/constant
+    #ln -sf ../orgCase/constant constant
     cp -rs "$(pwd)"/orgCase/constant/* "${folderName}"/constant/
     # Submit the job
     cd "${folderName}"
     echo "Submitting job from dir: $(pwd)"
-    sbatch submit.sh
+    #sbatch submit_1storder.sh
     # Move back up so that the right path can be used to copy and paste things
     cd ..
     echo "Done with $folderName ....."
