@@ -21,3 +21,6 @@ ffmpeg -i input_movie.mp4 -filter:v "setpts=2.0*PTS" slow_movie.mp4
 # Vertical and horizontal stack of multiple videos
 ffmpeg -i contour.mp4 -i velocity.mp4 -filter_complex vstack finalout.mp4  # Verticall stack
 ffmpeg -i contour.mp4 -i velocity.mp4 -filter_complex hstack finalout.mp4. # Horizontally stack
+
+# Nstacks
+ffmpeg -i video1.mp4 -i video2.mp4 -i video3.mp4 -filter_complex "[0:v][1:v][2:v]vstack=inputs=3" -c:v libx264 output.mp4
