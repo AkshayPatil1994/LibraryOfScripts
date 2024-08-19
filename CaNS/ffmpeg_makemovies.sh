@@ -17,3 +17,7 @@ ffmpeg -framerate 30 -pattern_type glob -i 'figures/figure_*.png' -c:v libx264 -
 
 # Slow down the video using ffmpeg
 ffmpeg -i input_movie.mp4 -filter:v "setpts=2.0*PTS" slow_movie.mp4
+
+# Vertical and horizontal stack of multiple videos
+ffmpeg -i contour.mp4 -i velocity.mp4 -filter_complex vstack finalout.mp4  # Verticall stack
+ffmpeg -i contour.mp4 -i velocity.mp4 -filter_complex hstack finalout.mp4. # Horizontally stack
