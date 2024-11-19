@@ -56,3 +56,34 @@ for ((nj=1;nj<=${numberOfJobs};nj++)); do
 	# Increment the value by the interval
 	myEndValue=$((myEndValue + siminterval))
 done
+
+
+## SUPPORTING SUBMIT.sh script
+#!/bin/bash
+
+#SBATCH --job-name="15_TUDLES"		# Name of the job for checking
+#SBATCH --time=12:00:00			# Wall clock time requested hh:mm:ss
+#SBATCH --partition=compute-p2		# Which partition?
+#SBATCH --account=research-abe-ur	# Account to charge
+#SBATCH --mem=150G			# Amount of memory
+#SBATCH -n 256                          # Number of CPU's
+
+# Number of processors used
+nprocs=256
+# Copy the right input file to working directory
+cp EDIT-ME dns.in		# CHANGE VALUE HERE
+# Load the appropriate modules
+echo "**LOADING MODULES**"
+module load 2023r1 intel/oneapi-all
+module use /beegfs/apps/unsupported/lmod/linux-rhel8-x86_64/Core
+module load libfabric
+# Source all the compilation paths
+export UCX_PROTO_ENABLE=n	# fix the UCX threading issue
+export PATH="/home/apatil5/fftw-3.3.10/bin:$PATH"
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/apatil5/fftw-3.3.10/lib/
+# Run the case and log data to file
+echo "**RUNNING JOB NOW**"
+mpirun -np $nprocs ./cans > run.log
+# Now move the log file to the right location
+mv run.log LOGFILENAME
+echo "**FIN**"
