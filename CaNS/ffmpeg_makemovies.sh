@@ -24,3 +24,6 @@ ffmpeg -i contour.mp4 -i velocity.mp4 -filter_complex hstack finalout.mp4. # Hor
 
 # Nstacks
 ffmpeg -i video1.mp4 -i video2.mp4 -i video3.mp4 -filter_complex "[0:v][1:v][2:v]vstack=inputs=3" -c:v libx264 output.mp4
+
+# High Quality GIF
+ffmpeg -i out.mp4 -vf "fps=5,scale=1028:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 output.gif
