@@ -3,6 +3,7 @@ from vtk import vtkPolyDataReader
 import numpy as np
 import time
 import os
+import sys
 #
 # Binary File convert function
 #
@@ -14,10 +15,10 @@ def save_to_binary(filename, array,my_datatype=np.float64):
 # User input data
 #
 # User-defined bounding box
-xmin, xmax = -500, 500  # Adjust as needed
-ymin, ymax = -500, 1000  # Adjust as needed
+xmin, xmax = -1100, 1100  # Adjust as needed
+ymin, ymax = -1100, 1100  # Adjust as needed
 # Data structure layout
-simendtime ='3200'                          # Simulation end time
+simendtime ='1200'                          # Simulation end time
 sa = 1                                      # Starting angle of the dataset
 aint = 1                                    # Interval between consquetive angles
 ea = 360                                    # Ending angle of the dataset
@@ -34,6 +35,22 @@ reader = vtkPolyDataReader()
 readertke = vtkPolyDataReader()
 # Setup the angles
 wind_directions = np.arange(start=sa,step=aint,stop=ea+aint)
+# First check all data is available
+for myz in zloc:
+	for wd in wind_directions:
+		ufile = '../allrun/results/postProcessing_'+str(wd)+'/cuttingPlane/'+simendtime+'/'+ \
+                        str(vars[0])+'_cutz'+str(myz)+'.vtk'
+		tkefile = '../allrun/results/postProcessing_'+str(wd)+'/cuttingPlane/'+simendtime+'/'+ \
+                        str(vars[1])+'_cutz'+str(myz)+'.vtk'
+		if (not (os.path.isfile(ufile) and os.path.isfile(tkefile))):
+			print(f"{ufile}")
+			print(f"{tkefile}")
+			print("Above files are missing....")
+			sys.exit()
+# Print file exists tag
+print("All files for conversion present")
+print("Starting VTK 2 Binary conversion....")
+# If exit does not happen then carry out the analysis
 for myz in zloc:
         write_coordinates = True
         for wd in wind_directions:
@@ -77,5 +94,3 @@ for myz in zloc:
             save_to_binary(speed_filename,filter_speed)
             save_to_binary(tke_filename,filter_tke)
             print(f"Case - Height: {myz} | theta: {wd} finished in {time.time() - time1} seconds")
-
-
