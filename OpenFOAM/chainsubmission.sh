@@ -1,7 +1,7 @@
 #!/bin/bash
-# submit_jobs.sh - Script to submit multiple OpenFOAM simulations with varying parameters
+# chainsubmission.sh - Script to submit multiple OpenFOAM simulations with varying parameters
 # This script creates multiple independent chains of jobs with controlled parallelism
-# Usage: ./submit_jobs.sh [--dry-run]
+# Usage: ./chainsubmission.sh [--dry-run]
 
 # Define arrays of possible values for each parameter
 # You can modify these arrays to include your desired parameter values
@@ -193,7 +193,7 @@ if [ "$DRY_RUN" = true ]; then
     done
     echo ""
     echo "To submit all jobs with proper dependencies, run:"
-    echo "./arrayjobsubmission.sh"
+    echo "./chainsubmission.sh"
     echo ""
     echo "To manually submit only one job, use the individaul job script."
     echo "For example, to submit only the first job of the first chain:"
