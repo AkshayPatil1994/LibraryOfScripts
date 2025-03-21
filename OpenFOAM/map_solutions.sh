@@ -2,12 +2,13 @@
 # Check if both source and target directories were provided
 if [ $# -lt 2 ]; then
     echo "Usage: $0 /path/to/source_directory /path/to/target_directory"
+    echo "The source directory is the solution you wish to map into the target case"
     exit 1
 fi
 SOURCE_DIR=$1
 TARGET_DIR=$2
 # List of specific files to process in each processor directory (for first part)
-# These files will be copied from the source into the target.
+# These files will be copied from the source into the target. These are the mapped files
 FILES=("epsilon" "k")
 # List of specific files to copy in the second part
 # these are solutions that come from the target.
