@@ -150,7 +150,7 @@ def readFoamProbes(filename,numProbes=10,fieldName='scalar'):
 #
 # Read an obj
 #
-def load_obj(file_path):
+def load_obj1(file_path):
     vertices = []
     faces = []
 
