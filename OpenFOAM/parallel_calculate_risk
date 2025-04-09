@@ -1,0 +1,65 @@
+import numpy as np
+from tqdm import tqdm
+import multiprocessing as mp
+
+def single_job(zindex):
+    print(f"\n*** Working on zindex {zindex} ***")
+    for alpha in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]:
+        for beta in [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1]:
+            print(f"alpha = {alpha}, beta = {beta}")
+            # Create empty data structure for each zindex
+            init_datastructure = True
+            for index in tqdm(range(1, 361), desc=f'z={zindex}', leave=True):
+                filename = f'{casename}/Umag_{zindex}_{index}.bin'
+                # Read the data
+                U = readdata(filename)
+                tke = readdata(filename.replace('Umag', 'TKE'))
+                # Read the data for the first pass at each zindex
+                if init_datastructure:
+                    # Create empty data structure
+                    avg_speed = np.zeros((len(U)))
+                    risk = np.zeros((len(U)))
+                    tke_risk = np.zeros((len(U)))
+                    init_datastructure = False
+                # Calculate the velocity magnitude
+                avg_speed += U
+                risk += np.logical_and(U > alpha*Uref, tke > beta*Uref*Uref)
+                tke_risk += np.logical_and(tke > beta*Uref*Uref,1.0) 
+            # Calculate the average velocity magnitude
+            avg_speed /= 360
+            # Calculate the risk
+            risk /= 360
+            tke_risk /= 360
+            # Save the data
+            # np.save(f'data/{casename}_avg_speed_{zindex}.npy', avg_speed,allow_pickle=False)
+            np.save(f'appendix_figures/{casename}_{alpha}_{beta}_risk_{zindex}.npy', risk,allow_pickle=False)
+            np.save(f'appendix_figures/{casename}_{alpha}_{beta}_tke_risk_{zindex}.npy', tke_risk,allow_pickle=False)
+
+def readdata(filename):
+    with open(filename, 'rb') as f:
+        f.seek(0)
+        data = np.fromfile(f, dtype=np.float64)
+    return data
+
+
+if __name__ == '__main__':
+
+    # USER INPUT
+    casename = 'lod1p2_denhaag'
+    zindices = [2, 5, 7, 10]
+    Uref = 5.0
+    n_processors = 192
+
+    # Set up multiprocessing pool with the number of cores available
+    num_jobs = min(n_processors,len(zindices))
+    print(f"Using {num_jobs} CPU cores")
+    
+    # Execute in parallel
+    with mp.Pool(processes=num_jobs) as pool:
+        results = list(tqdm(
+            pool.imap(single_job, zindices),
+            total=len(zindices),
+            desc="Processing zindex combinations"
+        ))
+    
+    print("All processing completed")
