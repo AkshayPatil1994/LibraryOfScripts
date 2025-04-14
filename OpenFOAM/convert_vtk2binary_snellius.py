@@ -15,14 +15,14 @@ def save_to_binary(filename, array,my_datatype=np.float64):
 # User input data
 #
 # User-defined bounding box
-xmin, xmax = -1100, 1100  # Adjust as needed
-ymin, ymax = -1100, 1100  # Adjust as needed
+xmin, xmax = -1400, 1400  # Adjust as needed
+ymin, ymax = -1400, 1400  # Adjust as needed
 # Data structure layout
 simendtime ='1200'                          # Simulation end time
 sa = 1                                      # Starting angle of the dataset
 aint = 1                                    # Interval between consquetive angles
 ea = 360                                    # Ending angle of the dataset
-zloc = [2,3,5,7,10]                         # Locations where the data is available
+zloc = [2,5,10,50,100]                      # Locations where the data is available
 vars = ['U','k']                            # Variables to average
 #
 # Loop over all u and k files to convert
@@ -38,10 +38,12 @@ wind_directions = np.arange(start=sa,step=aint,stop=ea+aint)
 # First check all data is available
 for myz in zloc:
 	for wd in wind_directions:
-		ufile = '../allrun/results/postProcessing_'+str(wd)+'/cuttingPlane/'+simendtime+'/'+ \
-                        str(vars[0])+'_cutz'+str(myz)+'.vtk'
-		tkefile = '../allrun/results/postProcessing_'+str(wd)+'/cuttingPlane/'+simendtime+'/'+ \
-                        str(vars[1])+'_cutz'+str(myz)+'.vtk'
+		# Name of the files zcut_5_U.vtk
+		print(f"Checking files for theta = {wd}")
+		ufile = '../'+str(wd)+'/postProcessing/sampling_planes/'+simendtime+'/'+ \
+                        'zcut_'+str(myz)+'_'+str(vars[0])+'.vtk'
+		tkefile = '../'+str(wd)+'/postProcessing/sampling_planes/'+simendtime+'/'+ \
+                        'zcut_'+str(myz)+'_'+str(vars[1])+'.vtk'
 		if (not (os.path.isfile(ufile) and os.path.isfile(tkefile))):
 			print(f"{ufile}")
 			print(f"{tkefile}")
@@ -55,10 +57,10 @@ for myz in zloc:
         write_coordinates = True
         for wd in wind_directions:
             time1 = time.time()
-            ufile = '../allrun/results/postProcessing_'+str(wd)+'/cuttingPlane/'+simendtime+'/'+ \
-                        str(vars[0])+'_cutz'+str(myz)+'.vtk'
-            tkefile = '../allrun/results/postProcessing_'+str(wd)+'/cuttingPlane/'+simendtime+'/'+ \
-                        str(vars[1])+'_cutz'+str(myz)+'.vtk'
+            ufile = '../'+str(wd)+'/postProcessing/sampling_planes/'+simendtime+'/'+ \
+                        'zcut_'+str(myz)+'_'+str(vars[0])+'.vtk'
+            tkefile = '../'+str(wd)+'/postProcessing/sampling_planes/'+simendtime+'/'+ \
+                        'zcut_'+str(myz)+'_'+str(vars[1])+'.vtk'
             # Read the data
             reader.SetFileName(ufile)
             readertke.SetFileName(tkefile)
@@ -82,10 +84,10 @@ for myz in zloc:
                 save_to_binary(x_filename,filter_x)
                 save_to_binary(y_filename,filter_y)
                 # Set the write coordinates flag to false for this height
-                write_coordinates = False          
-            # Continue writing data for tke and mag(U)   
+                write_coordinates = False
+            # Continue writing data for tke and mag(U)
             Udata = vtk_to_numpy(pudata.GetPointData().GetArray(0))
-            tke = vtk_to_numpy(ptkedata.GetPointData().GetArray(0))         
+            tke = vtk_to_numpy(ptkedata.GetPointData().GetArray(0))
             filter_speed = np.sqrt(Udata[mask,0]**2+Udata[mask,1]**2+Udata[mask,2]**2)
             filter_tke = tke[mask]
             # Write to file
