@@ -64,8 +64,10 @@ print(f"*** Simulation data loaded in {time.time()-time1:.2f} seconds ***")
 # Now we can calculate the comfort class
 #
 print("NOTICE: The comfort class calculations rounds the wind direction to the nearest integer value!")
+ustar = (boundary_condition_value*kappa)/(np.log((zreference+z0)/z0))
+norm_U = (ustar/kappa)*np.log((z_comfort+z0)/z0) 
 # Normalise the simulation data by the boundary condition value used in the simulation
-simulation_data /= boundary_condition_value
+simulation_data /= norm_U
 # Initialize the comfort class array
 comfort_class = np.zeros((data_size))
 # Loop over historical wind data and calculate the comfort class
