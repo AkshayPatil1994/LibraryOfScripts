@@ -288,3 +288,30 @@ def combine_and_clip(obj_files, output_file, center, radius,
 
     # Export
     scene_out.export(output_file)
+#
+# FACTOR NPROCS
+#
+def get_decomp(n):
+    '''
+        This function calculates the decomposition factors for uDALES
+    INPUT
+        n - [integer]: Number of processors in total
+    OUTPUT
+        procx, procy - [integer]: Number of blocks in x and y
+    '''
+    # First check if sqrt is 2^N
+    square_root = np.sqrt(n)
+    if(square_root.is_integer()):
+        procx, procy = square_root, square_root
+        return procx, procy    
+    else:
+        factors = []
+        i = 1
+        while 2 ** i < n:
+            if n % (2 ** i) == 0:
+                factors.append(2 ** i)
+            i += 1
+        # Now get the best combination which typically is central two
+        startx=len(factors)//2
+        procx, procy = factors[startx], factors[startx-1]
+        return procx, procy
