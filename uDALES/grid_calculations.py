@@ -8,8 +8,8 @@ warnings.filterwarnings("ignore",category=UserWarning)
 #
 Hbuilding = 90.0                     # Height of the building
 L = [3400,2500,600]                  # Length of the domain in x, y, and z (stream, span, vert)
-delta = [2.5,2.5,2.5]              # Target resolution in x, y, and z (stream, span, vert)
-Nprocs = 192                         # Number of processors used in the simulation
+delta = [2.5,2.5,2.5]                # Target resolution in x, y, and z (stream, span, vert)
+Nprocs = 192*3                       # Number of processors used in the simulation
 # Secondary parameters
 N_samples = 10000                   # Number of input planes used in the precursor
 bl_stretch = False                  # Is the grid stretched in vertical?
