@@ -1,4 +1,6 @@
+import trimesh
 import numpy as np
+from trimesh.transformations import rotation_matrix
 from scipy.optimize import brentq
 import matplotlib.pyplot as plt
 #
@@ -221,3 +223,68 @@ def plot_grid(zlin,ktot,dzf,zf):
 
     plt.tight_layout()
     plt.show()    
+#
+# COMBINE & CLIP GEOMETRY
+#
+def combine_and_clip(obj_files, output_file, center, radius,
+                     rotangledeg=0, rotaxis=[0,0,1], rotpoint=None):
+    '''
+        This function combines multiple OBJ files, clip geometry to a sphere around a given center, rotate about a specified point, and retain group names.
+    INPUT
+        obj_files - [list of strings]: List containing the full path and names of the obj files to be merged
+        output_file - [string]: Name of the merged output file
+        center - [list of floats]: Center about which the clipping is carried out
+        radius - [float]: Radius about the center that is retained within the geometry
+        rotangledeg - [float, default value 0 deg]: Rotation angle applied
+        rotaxis - [list of integer, default about z axis]: Rotation axis
+    OUTPUT
+        Returns the clipped and rotated merged obj        
+    '''
+    combined_meshes = []
+
+    center = np.array(center)
+
+    # Default rotation point = center if not provided
+    if rotpoint is None:
+        rotpoint = center
+    rotpoint = np.array(rotpoint)
+
+    # Create rotation matrix (if angle != 0)
+    if rotangledeg != 0:
+        rot_matrix = rotation_matrix(np.deg2rad(rotangledeg), rotaxis, rotpoint)
+    else:
+        rot_matrix = None
+
+    for obj_file in obj_files:
+        # Load with process=False to keep group info
+        scene = trimesh.load(obj_file, force='scene')
+
+        # Each geometry in scene corresponds to a group
+        for name, geom in scene.geometry.items():
+            mesh = geom.copy()
+
+            # Clip geometry to sphere
+            mask = np.linalg.norm(mesh.vertices - center, axis=1) <= radius
+            face_mask = mask[mesh.faces].all(axis=1)
+            mesh.update_faces(face_mask)
+            mesh.remove_unreferenced_vertices()
+
+            # Apply rotation if any
+            if rot_matrix is not None and len(mesh.faces) > 0:
+                mesh.apply_transform(rot_matrix)
+
+            if len(mesh.faces) > 0:
+                combined_meshes.append(mesh)
+
+    if len(combined_meshes) == 0:
+        print("No geometry within clipping radius.")
+        return
+
+    # Combine into one scene
+    scene_out = trimesh.Scene()
+    for i, mesh in enumerate(combined_meshes):
+        gname = mesh.metadata.get('group_name', f"group_{i}")
+        scene_out.add_geometry(mesh, node_name=gname)
+
+    # Export
+    scene_out.export(output_file)
