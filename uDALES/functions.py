@@ -315,3 +315,40 @@ def get_decomp(n):
         startx=len(factors)//2
         procx, procy = factors[startx], int(n/factors[startx])
         return procx, procy
+#
+# BEST N POINTS
+#
+def getN(L, delta, divisor, search_range=5):
+    """
+        This function finds the optimal number of grid points that:
+            1. Is divisible by divisor
+            2. Gives a resolution closest to the target delta
+    INPUT    
+        L - [float]: Domain length
+        delta - [float]: Target resolution
+        divisor - [int]: Number that N must be divisible by
+        search_range - [int]: Number of multiples to search above and below ideal value    
+    OUTPUT
+        N_opt - [int]: Optimal number of grid points
+    """
+    # Calculate ideal number of grid points
+    N_ideal = L / delta
+    
+    # Find the base multiple
+    base_multiple = int(N_ideal // divisor)
+    
+    # Search through nearby multiples
+    best_N = None
+    best_error = float('inf')
+    
+    for i in range(max(1, base_multiple - search_range), base_multiple + search_range + 1):
+        N_candidate = i * divisor
+        if N_candidate > 0:
+            delta_candidate = L / N_candidate
+            error = abs(delta_candidate - delta)
+            
+            if error < best_error:
+                best_error = error
+                best_N = N_candidate
+    
+    return best_N
