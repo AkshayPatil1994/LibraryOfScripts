@@ -313,5 +313,5 @@ def get_decomp(n):
             i += 1
         # Now get the best combination which typically is central two
         startx=len(factors)//2
-        procx, procy = factors[startx], factors[startx-1]
+        procx, procy = factors[startx], int(n/factors[startx])
         return procx, procy
