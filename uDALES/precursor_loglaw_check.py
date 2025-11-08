@@ -18,9 +18,10 @@ C2 = 1.92           # K-Epsilon closure model constant
 #
 z = np.linspace(0,H,250)
 ustar = (Uref*kappa)/(np.log((Zref+z0)/z0))
-print(f"Friction velocity: {ustar} m/s")
+print(f"Friction velocity: {ustar:.5f} m/s")
 U = (ustar/kappa)*np.log((z - d + z0)/z0)
-print(f"Driving Pressure Gradient (dpdx): {ustar**2/H}")
+print(f"Driving Pressure Gradient (dpdx): {ustar**2/H:.8f}")
+print(f"Maximum velocity at z={z[-1]}: {U[-1]:.4f}m/s")
 # RANS Simulation PROFILE -- Not used
 # k = (ustar**2/np.sqrt(Cmu))*np.sqrt(C1*np.log((z-d+z0)/z0) + C2)
 # epsilon = (ustar**3/(kappa*(z-d+z0)))*np.sqrt(C1*np.log((z-d+z0)/z0) + C2)
