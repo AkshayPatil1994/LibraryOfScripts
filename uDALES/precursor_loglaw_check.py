@@ -5,7 +5,7 @@ warnings.filterwarnings("ignore")
 # USER INPUT DATA
 Uref = 5.0          # Reference Velocity m/s
 Zref = 10.0         # Reference height m
-z0 = 0.425          # Hydraulic roughness m
+z0 = 0.165          # Hydraulic roughness m
 kappa = 0.41        # von Karman constant
 H = 600.0           # Height of the domain in m
 d = 0.0             # This is case specific for each of the cases
@@ -28,11 +28,12 @@ print(f"Driving Pressure Gradient (dpdx): {ustar**2/H}")
 # PLOTTING
 #
 plt.figure(1,figsize=(10,6))
-plt.semilogy(U/Uref,z/Zref,'kx')
+plt.semilogy(U/Uref,z/Zref,'kx',label=fr'- profile with $u_*$ = {ustar:.4f} m/s')
 plt.axhline(1,color='k')
 plt.axvline(1,color='k')
 plt.xlabel(r'$U/U_{ref}$',fontsize=20)
 plt.ylabel(r'$z/z_{ref}$',fontsize=20)
 plt.grid()
-plt.title('Velocity',fontsize=20)
+plt.legend(fontsize=14,frameon=False)
+plt.title(f'Velocity profile with z0={z0:.4f}',fontsize=20)
 plt.show()
