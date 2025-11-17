@@ -1,11 +1,9 @@
 #!/bin/bash
-#
-# USER INPUT PARAMETERS
-#
-angles="5,10,15,20"                                # List of angles seperated by a comma
-driver_exp_num=1                                   # Driver files experiment number
-exp_start_num=2                                    # Experiment number where the jobs begin
-submit_jobs=1                                      # 1 = submit jobs
+# Define all angles to be setup for pre-processing seperated by a comma (",")
+angles="5,10,15,20"								# Angles to be run (this reads geometry files titled campus_5.stl and so on
+driver_exp_num=1								# Driver experiment number
+exp_start_num=2									# Starting number of the experiment corresponding to 5 degrees
+submit_jobs=1									# 1 - submits jobs, 0 - only generate files without submitting
 # # # # # # # # #
 # CODE - BELOW  #
 # # # # # # # # #
