@@ -10,7 +10,7 @@
 
 # DEFINE SOME USER SPECIFIC DATA
 export my_exp_num="002"				# Store the experiment number within the script for internal use
-export sleep_time="800"				# Number of seconds to sleep for pre-processing to finish (takes roughly 13 minutes to finish)
+export max_wait_time="3600"			# Number of seconds to sleep for pre-processing to finish (takes roughly 13 minutes to finish)
 export uDALES_HOME="${HOME}/uDALES/u-dales"	# Home location for u-dales
 export exp_location="$(pwd)"			# Experiment location, typically from where submit.sh is submitted
 # Load the appropriate modules
@@ -30,34 +30,41 @@ module load gcc/13.3.0
 #
 echo "**PRE PROCESSING**"
 cd ${uDALES_HOME}				# Run the script from uDALES home location
-tools/write_inputs.sh ${exp_location}	# Run the pre-processing script
+tools/write_inputs.sh ${exp_location}		# Run the pre-processing script
 cd ${exp_location}				# Return back to the experiment location
 # Sleep for a specified amount of time until pre-processing is finished
 echo "**SLEEPING UNTIL PRE PROCESSING IS FINISHED**"
-sleep $sleep_time
 # Force check that the log file is proprely finished
 logcheck=$(grep "Written facetarea.inp.${my_exp_num}" "write_inputs.${my_exp_num}.log")
 check_string="Written facetarea.inp.${my_exp_num}"
-# Do a single check and allow for 2 x sleep_time for pre-processing, otherwise something is wrong and abort
-if [[ "$logcheck" == "$check_string" ]]; then
-    echo "Pre-processing finished normally, continue simulation"
-else
-    echo "Pre-processing not yet finalised, sleeping for additional ${sleep_time} seconds"
-    sleep $sleep_time
-fi
-# Final check or else abort
-if [[ "$logcheck" == "$check_string" ]]; then
-    echo "Pre-processing finished normally, continue simulation"
-else
-   echo "Something went wrong with pre-processing, aborting further steps..."
-   exit
-fi
+# Define some preliminary parameters
+elapsed=0
+sleep_interval=60
+# While check for pre-processing setup
+while true; do
+    # Check if log file contains the string
+    if grep -q "$check_string" "write_inputs.${my_exp_num}.log"; then
+        echo "Pre-processing finished normally, continue simulation"
+        break
+    fi
+
+    # If we have waited too long, abort
+    if [[ $elapsed -ge $max_wait_time ]]; then
+        echo "Pre-processing did not finish within expected time, aborting..."
+        exit 1
+    fi
+
+    # Sleep and increment elapsed time
+    echo "Pre-processing not yet finished, sleeping for ${sleep_interval} seconds..."
+    sleep $sleep_interval
+    elapsed=$((elapsed + sleep_interval))
+done
 #
 # RUN SIMULATION
 #
 cp ${uDALES_HOME}/build/release/u-dales .
 cp namoptions.${my_exp_num} namoptions
 echo "**RUNNING SIMULATION**"
-srun u-dales
+srun --ntasks=8 u-dales
 # FINALISE
 echo "**FIN**"
