@@ -1,9 +1,11 @@
 #!/bin/bash
-# Define all angles to be setup for pre-processing seperated by a comma (",")
-angles="5,10,15,20,25,30"
-# If your driver simulation is 001 then start the first angle with 002 as opposed to 001 to keep setup valid
-exp_start_num=2
-submit_jobs=1
+#
+# USER INPUT PARAMETERS
+#
+angles="5,10,15,20"                                # List of angles seperated by a comma
+driver_exp_num=1                                   # Driver files experiment number
+exp_start_num=2                                    # Experiment number where the jobs begin
+submit_jobs=1                                      # 1 = submit jobs
 # # # # # # # # #
 # CODE - BELOW  #
 # # # # # # # # #
@@ -23,6 +25,13 @@ for ((i=0;i<${#angle_array[@]};i+=1)); do
 		cp namoptions ${padded_expnum}/namoptions.${padded_expnum}
 		cp "coarse_les_geometry/campus_${angle_array[i]}.stl" ${padded_expnum}/campus.stl
 		cp submit.sh ${padded_expnum}/
+		# Generate soft links to the driver files
+		cd ${padded_expnum}/
+		cp -rs $(pwd)/../driver_files/* .
+		cd ../
+		#
+		# Edit files based on exp_num
+		#
 		# Change the number of the experiment number inside namptions.${padded_expnum}
 		sed -i "s/^\(iexpnr[[:space:]]*=[[:space:]]*\).*/\1${padded_expnum}/" ${padded_expnum}/namoptions.${padded_expnum}
 		# Change the job name in the submit file
