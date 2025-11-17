@@ -29,7 +29,7 @@ module load matlab/R2024b
 #
 echo "**PRE PROCESSING**"
 cd ${uDALES_HOME}				# Run the script from uDALES home location
-tools/write_inputs_dhcp.sh ${exp_location}	# Run the pre-processing script
+tools/write_inputs.sh ${exp_location}	# Run the pre-processing script
 cd ${exp_location}				# Return back to the experiment location
 # Sleep for a specified amount of time until pre-processing is finished
 echo "**SLEEPING UNTIL PRE PROCESSING IS FINISHED**"
