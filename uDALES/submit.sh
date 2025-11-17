@@ -24,6 +24,7 @@ module load netcdf-c/4.9.2
 module load netcdf-fortran/4.6.1
 # Matlab required for pre-processing
 module load matlab/R2024b
+module load gcc/13.3.0
 #
 # FIRST RUN PREPROCESSING
 #
