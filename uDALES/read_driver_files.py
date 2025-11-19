@@ -350,6 +350,23 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig('driver_analysis.png', dpi=150, bbox_inches='tight')
         print("\nSaved visualization to 'driver_analysis.png'")
+
+        # Calculate the rms velocity profiles and the TKE profiles
+        u_rms = np.sqrt(np.mean((data['u'] - u_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
+        v_rms = np.sqrt(np.mean((data['v'] - v_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
+        w_rms = np.sqrt(np.mean((data['w'] - w_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
+        tke = 0.5 * (u_rms**2 + v_rms**2 + w_rms**2)
+        plt.figure(2,figsize=(7,6))
+        plt.plot(u_rms[1:-1]/utau, z*Retau/H, 'b-', label='u_rms')
+        plt.plot(v_rms[1:-1]/utau, z*Retau/H, 'r-', label='v_rms')
+        plt.plot(w_rms[1:-1]/utau, z*Retau/H, 'g-', label='w_rms')
+        plt.plot(tke[1:-1]/utau**2, z*Retau/H, 'k--', label='TKE')
+        plt.ylabel(r'$x_3^+$',fontsize=20)                
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+        plt.tight_layout()
+        plt.savefig('rms_velocity_profiles.png', dpi=150, bbox_inches='tight')
+        print("Saved RMS velocity profiles to 'rms_velocity_profiles.png'")
         
     except FileNotFoundError as e:
         print(f"\nError: {e}")
