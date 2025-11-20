@@ -286,6 +286,11 @@ if __name__ == "__main__":
     # Optional
     zfile = 'lscale.inp.002'                # File containing vertical grid spacing information
     ylen = 2500.0                           # Domain length in y-direction [m]
+    n_frames = 100                          # Number of frames to save in animation
+    save_animation = True                   # Whether to save animation of U over time 
+    video_fps = 60                          # FPS for the saved animation
+    umax = 18.0                             # Max U velocity for color scale in animation
+    calc_rms = False                        # Whether to calculate and plot rms velocity profiles
     #
     # Setup the driver file reader
     reader = DriverFileReader(experiment_number=experiment_number, nprocy=nprocy)            
@@ -351,22 +356,55 @@ if __name__ == "__main__":
         plt.savefig('driver_analysis.png', dpi=150, bbox_inches='tight')
         print("\nSaved visualization to 'driver_analysis.png'")
 
+        #
         # Calculate the rms velocity profiles and the TKE profiles
-        u_rms = np.sqrt(np.mean((data['u'] - u_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
-        v_rms = np.sqrt(np.mean((data['v'] - v_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
-        w_rms = np.sqrt(np.mean((data['w'] - w_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
-        tke = 0.5 * (u_rms**2 + v_rms**2 + w_rms**2)
-        plt.figure(2,figsize=(7,6))
-        plt.plot(u_rms[1:-1]/utau, z*Retau/H, 'b-', label='u_rms')
-        plt.plot(v_rms[1:-1]/utau, z*Retau/H, 'r-', label='v_rms')
-        plt.plot(w_rms[1:-1]/utau, z*Retau/H, 'g-', label='w_rms')
-        plt.plot(tke[1:-1]/utau**2, z*Retau/H, 'k--', label='TKE')
-        plt.ylabel(r'$x_3^+$',fontsize=20)                
-        plt.legend()
-        plt.grid(True, alpha=0.3)
-        plt.tight_layout()
-        plt.savefig('rms_velocity_profiles.png', dpi=150, bbox_inches='tight')
-        print("Saved RMS velocity profiles to 'rms_velocity_profiles.png'")
+        #
+        if(calc_rms):
+            u_rms = np.sqrt(np.mean((data['u'] - u_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
+            v_rms = np.sqrt(np.mean((data['v'] - v_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
+            w_rms = np.sqrt(np.mean((data['w'] - w_mean[np.newaxis, np.newaxis, :])**2, axis=(0, 1)))
+            tke = 0.5 * (u_rms**2 + v_rms**2 + w_rms**2)
+            plt.figure(2,figsize=(7,6))
+            plt.plot(u_rms[1:-1]/utau, z*Retau/H, 'b-', label='u_rms')
+            plt.plot(v_rms[1:-1]/utau, z*Retau/H, 'r-', label='v_rms')
+            plt.plot(w_rms[1:-1]/utau, z*Retau/H, 'g-', label='w_rms')
+            plt.plot(tke[1:-1]/utau**2, z*Retau/H, 'k--', label='TKE')
+            plt.ylabel(r'$x_3^+$',fontsize=20)                
+            plt.legend()
+            plt.grid(True, alpha=0.3)
+            plt.tight_layout()
+            plt.savefig('rms_velocity_profiles.png', dpi=150, bbox_inches='tight')
+            print("Saved RMS velocity profiles to 'rms_velocity_profiles.png'")
+        #
+        # Save animation of U over time (optional)
+        #
+        if(save_animation):
+            import matplotlib.animation as animation
+            from tqdm.auto import tqdm 
+            fig, ax = plt.subplots(figsize=(15,4))
+            def render_frame(t):
+                ax.clear()
+                pimg = ax.pcolormesh(y, z, data['u'][t,1:-1,1:-1].T, cmap='magma_r', shading='auto')
+                ax.set_title(f'U velocity at t={data["times"][t]:.2f}s')
+                ax.set_xlabel('Y')
+                ax.set_ylabel('Z')
+                pimg.set_clim(0, umax)
+                ax.set_xlim(0, ylen)
+                ax.set_ylim(0, H)
+
+            # Save animation using FFMpegWriter and a tqdm progress bar
+            writer = animation.FFMpegWriter(fps=video_fps)
+            out_file = 'u_velocity_animation.mp4'
+            with writer.saving(fig, out_file, dpi=400):
+                #for t in tqdm(range(len(data['times'])), desc='Saving animation', unit='frame'):
+                for t in tqdm(range(n_frames), desc='Saving animation', unit='frame'):
+                    render_frame(t)
+                    fig.canvas.draw()
+                    writer.grab_frame()
+
+            print("Saved U velocity animation to 'u_velocity_animation.mp4'")
+
+
         
     except FileNotFoundError as e:
         print(f"\nError: {e}")
