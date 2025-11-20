@@ -2,8 +2,7 @@
 ** Some instructions to run the cases on DelftBlue **
 *****************************************************
 
---- You will need to edit the following fields in the submit.sh?script
-?
+--- You will need to edit the following fields in the `submit.sh` script
 max_wait_time [seconds] - This is the maximum wait time allowed for pre-processing 
 uDALES_HOME [string] - This is the full path to the location where uDALES is compiled
 
@@ -23,7 +22,7 @@ Example of case directory layout
 README.md  coarse_les_geometry  config.sh  driver_files  gen_cases.sh  namoptions  submit.sh
 ```
 
-In this example, `coarse_les_geometry`§is where the geometry is stored names as `campus_0.59.stl`, `campus_1.82.stl`, and so on.
+In this example, `coarse_les_geometry` is where the geometry is stored names as `campus_0.59.stl`, `campus_1.82.stl`, and so on.
 The driver files are located within `driver_files` which contains the following files, where the decomposition corresponds to
 4 x 2 decomposition i.e., procy = 2 that is the two decomposition.
 ```
