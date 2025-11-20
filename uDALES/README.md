@@ -2,18 +2,18 @@
 ** Some instructions to run the cases on DelftBlue **
 *****************************************************
 
---- You will need to edit the following fields in the `submit.sh` script
-max_wait_time [seconds] - This is the maximum wait time allowed for pre-processing 
+--- You will need to edit the following fields in the `submit.sh` script  
+max_wait_time [seconds] - This is the maximum wait time allowed for pre-processing   
 uDALES_HOME [string] - This is the full path to the location where uDALES is compiled
 
 -- You will need to edit the following fields in the gen_cases.sh script
 
-angles [array of string] - Comma seperated angles corresponding to the geometry rotations in degrees
-geo_location [string] - Location where the geometry is setup
-geo_prefix [string] - Prefix of the geometry name (e.g., campus for files named campus_120.stl)
-submit_jobs [1 or 0] - Integer flag to submit jobs or only generate directories
-exp_start_num [integer] - Integer value that corresponds to the starting angle
-driver_exp_num [integer] - Experiment number of the driver simulations, typically == 1
+angles [array of string] - Comma seperated angles corresponding to the geometry rotations in degrees  
+geo_location [string] - Location where the geometry is setup  
+geo_prefix [string] - Prefix of the geometry name (e.g., campus for files named campus_120.stl)  
+submit_jobs [1 or 0] - Integer flag to submit jobs or only generate directories  
+exp_start_num [integer] - Integer value that corresponds to the starting angle  
+driver_exp_num [integer] - Experiment number of the driver simulations, typically == 1  
 
 *****************************************************
 Example of case directory layout
