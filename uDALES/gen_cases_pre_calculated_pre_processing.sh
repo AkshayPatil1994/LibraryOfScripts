@@ -1,5 +1,5 @@
 #!/bin/bash
-angles="1.89"
+angles="1.89,26.61,54.97"
 geo_location="nominal_les_geometry"						# Location where all geometry is stored
 geo_prefix="campus"								# Prefix used for the geometry
 ibm_prefix="ibm_data"								# Prefix used for the IBM data storage
@@ -22,7 +22,6 @@ for ((i=0;i<${#angle_array[@]};i+=1)); do
 		# Copy config.sh and namoptions with the correct name
 		mkdir ${padded_expnum}
 		cp config.sh ${padded_expnum}
-		cp namoptions ${padded_expnum}/namoptions.${padded_expnum}
 		cp "${geo_location}/${geo_prefix}_${angle_array[i]}.stl" ${padded_expnum}/campus.stl
 		cp submit.sh ${padded_expnum}/
 		# Generate soft links to the driver files
@@ -33,6 +32,7 @@ for ((i=0;i<${#angle_array[@]};i+=1)); do
 		cd ${padded_expnum}
 		cp -rs "$(pwd)"/../${ibm_prefix}/${padded_expnum}/*.txt .
 		cp -rs "$(pwd)"/../${ibm_prefix}/${padded_expnum}/*.inp.* .
+		cp  "$(pwd)"/../${ibm_prefix}/${padded_expnum}/namoptions.${padded_expnum} .
 		cd ../
 		#
 		# Edit files based on exp_num
@@ -48,7 +48,7 @@ for ((i=0;i<${#angle_array[@]};i+=1)); do
 	# Job submission check
 	if [ ${submit_jobs} == 1 ]; then
 		cd ${padded_expnum}/
-		sbatch submit_snellius.sh
+		sbatch submit.sh
 		cd ..
 	fi
 
