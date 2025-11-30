@@ -48,7 +48,7 @@ for ((i=0;i<${#angle_array[@]};i+=1)); do
 	# Job submission check
 	if [ ${submit_jobs} == 1 ]; then
 		cd ${padded_expnum}/
-		sbatch submit.sh
+		sbatch submit_snellius.sh
 		cd ..
 	fi
 
