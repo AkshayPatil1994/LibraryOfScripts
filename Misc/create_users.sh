@@ -79,6 +79,10 @@ while read -r my_user my_pass; do
         # Make sure the user owns their .bashrc
         sudo chown "$my_user:$group_name" "/home/$my_user/.bashrc"
 
+	# Limit quotas in users
+        sudo setquota $my_user 52428800 62914560 0 0 /
+
+
         echo "Finished setting up ${my_user}"
         echo
 
