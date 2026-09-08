@@ -1,4 +1,9 @@
 #!/bin/zsh
+# ---
+# purpose: Copies 4 OBJ meshes, runs surfaceFeatures/blockMesh, then snappyHexMesh (parallel or serial), reconstructs and checks mesh.
+# usage: ./runAllGeometryPrep_TUDcampus.sh; edit nprocs/snapPar.
+# tags: prep, mesh
+# ---
 
 # SnappyHex in parallel? ( 1 = Yes, 0 = No )
 snapPar=1

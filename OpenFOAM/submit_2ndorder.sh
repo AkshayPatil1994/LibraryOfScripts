@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Same as submit_1storder.sh but for 2nd-order scheme, longer simEndTime.
+# usage: sbatch submit_2ndorder.sh.
+# tags: submission, template, pipeline
+# note: dup-cluster with submit_1storder.sh.
+# ---
 
 #SBATCH --job-name="a112l1p2"		# Name of the job for checking
 #SBATCH --time=04:30:00			# Wall clock time requested

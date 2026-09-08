@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Converts/downsamples an image (e.g. high-res PDF) to a lower-quality output using ImageMagick.
+# usage: ./convert_highres2lowred.sh <density> <input_file> <quality> <output_file>
+# tags: utility
+# ---
 
 # Usage: ./convert_pdf.sh <density> <input_file> <quality> <output_file>
 

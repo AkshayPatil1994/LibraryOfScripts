@@ -1,3 +1,8 @@
+# ---
+# purpose: Converts a GeoPackage point-cloud terrain into a triangulated STL surface for OpenFOAM.
+# usage: python terrain_gpkg_to_stl.py; edit filepath/z_offset inline.
+# tags: prep, mesh
+# ---
 
 
 '''

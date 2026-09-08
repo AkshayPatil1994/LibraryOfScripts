@@ -1,4 +1,9 @@
 #!/bin/zsh
+# ---
+# purpose: Generates cube geometry via gmsh, builds STL, runs surfaceFeatures/blockMesh/snappyHexMesh (serial).
+# usage: ./runAllGeometryPrepAndMesh.sh from case root.
+# tags: prep, mesh
+# ---
 # Name of the output stl
 outMesh='geo/SF.stl'
 # Check if logs directory exists

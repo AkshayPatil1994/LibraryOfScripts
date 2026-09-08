@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library of Scripts</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#eef0ea;
+  --surface:#ffffff;
+  --surface-2:#f6f7f2;
+  --ink:#1b2320;
+  --ink-dim:#5b665f;
+  --border:#d7dcd0;
+  --accent:#3b6e5e;
+  --accent-ink:#f2f7f4;
+  --accent-soft:#e2ede8;
+  --gold:#93691c;
+  --gold-soft:#f2e9d6;
+  --danger:#a33c2e;
+  --danger-soft:#f6e4e0;
+  --code-bg:#f1f0e9;
+  --focus:#2f5d8a;
+  --shadow:0 1px 2px rgba(20,30,25,.06), 0 4px 14px rgba(20,30,25,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161b18; --surface:#1e2521; --surface-2:#232b26;
+    --ink:#e7ece7; --ink-dim:#9fada4; --border:#333f37;
+    --accent:#6fae97; --accent-ink:#0f1613; --accent-soft:#233530;
+    --gold:#d9b25f; --gold-soft:#332b17;
+    --danger:#e08972; --danger-soft:#3a221d;
+    --code-bg:#1a201c; --focus:#7fa8cf;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161b18; --surface:#1e2521; --surface-2:#232b26;
+  --ink:#e7ece7; --ink-dim:#9fada4; --border:#333f37;
+  --accent:#6fae97; --accent-ink:#0f1613; --accent-soft:#233530;
+  --gold:#d9b25f; --gold-soft:#332b17;
+  --danger:#e08972; --danger-soft:#3a221d;
+  --code-bg:#1a201c; --focus:#7fa8cf;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'IBM Plex Sans', -apple-system, sans-serif; line-height:1.5;
+}
+img{max-width:100%;}
+h1,h2,h3{text-wrap:balance; font-family:'IBM Plex Mono', ui-monospace, Menlo, monospace; margin:0;}
+code, .mono{font-family:'IBM Plex Mono', ui-monospace, Menlo, monospace;}
+
+header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:28px clamp(16px,4vw,48px) 22px;}
+.top-inner{max-width:1180px; margin:0 auto;}
+.eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:6px;}
+h1{font-size:clamp(24px,3vw,32px); font-weight:600;}
+.sub{color:var(--ink-dim); font-size:14.5px; max-width:64ch; margin-top:8px;}
+.statrow{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+.stat{border:1px solid var(--border); border-radius:8px; background:var(--surface-2); padding:8px 14px; display:flex; flex-direction:column; gap:2px; min-width:92px;}
+.stat b{font-size:20px; font-variant-numeric:tabular-nums; font-family:'IBM Plex Mono',monospace;}
+.stat span{font-size:11.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em;}
+
+.controls{position:sticky; top:0; z-index:5; background:var(--bg); padding:14px clamp(16px,4vw,48px); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
+.controls-inner{max-width:1180px; margin:0 auto; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+#search{flex:1 1 260px; min-width:200px; background:var(--surface); color:var(--ink); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:14.5px; font-family:inherit;}
+#search:focus-visible{outline:2px solid var(--focus); outline-offset:1px;}
+.chip{border:1px solid var(--border); background:var(--surface); color:var(--ink-dim); border-radius:999px; padding:6px 13px; font-size:12.5px; font-family:'IBM Plex Mono',monospace; cursor:pointer; transition:background .12s, color .12s, border-color .12s;}
+.chip:hover{border-color:var(--accent);}
+.chip[aria-pressed="true"]{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
+.chip:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.count-note{font-size:12.5px; color:var(--ink-dim); font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
+
+main{max-width:1180px; margin:0 auto; padding:28px clamp(16px,4vw,48px) 80px; display:flex; gap:32px; align-items:flex-start;}
+nav.jump{position:sticky; top:78px; flex:0 0 168px; display:flex; flex-direction:column; gap:2px;}
+nav.jump a{color:var(--ink-dim); text-decoration:none; font-size:13px; font-family:'IBM Plex Mono',monospace; padding:5px 8px; border-radius:6px; border-left:2px solid transparent;}
+nav.jump a:hover{color:var(--ink); background:var(--surface-2);}
+nav.jump a:focus-visible{outline:2px solid var(--focus);}
+
+.content{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:36px;}
+section.cat{scroll-margin-top:90px;}
+.cat-head{display:flex; align-items:baseline; gap:12px; margin-bottom:4px; flex-wrap:wrap;}
+.cat-head h2{font-size:19px;}
+.cat-tag{font-size:11px; font-family:'IBM Plex Mono',monospace; color:var(--ink-dim); border:1px solid var(--border); border-radius:5px; padding:1px 7px;}
+.cat-desc{color:var(--ink-dim); font-size:13.5px; margin-top:4px; max-width:70ch;}
+
+.tablewrap{margin-top:14px; border:1px solid var(--border); border-radius:10px; overflow-x:auto; background:var(--surface); box-shadow:var(--shadow);}
+table{border-collapse:collapse; width:100%; min-width:760px;}
+thead th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-dim); background:var(--surface-2); padding:10px 14px; border-bottom:1px solid var(--border); position:sticky; top:0;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:var(--surface-2);}
+td{padding:12px 14px; vertical-align:top; font-size:13.5px;}
+td.name{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; white-space:nowrap;}
+td.purpose{color:var(--ink); max-width:34ch;}
+td.usage{color:var(--ink-dim); max-width:30ch; font-size:12.8px;}
+td.usage code{background:var(--code-bg); padding:1px 5px; border-radius:4px; font-size:12px;}
+.badges{display:flex; gap:5px; flex-wrap:wrap; margin-top:5px;}
+.badge{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:1.5px 7px; border-radius:5px; white-space:nowrap;}
+.badge.dup{background:var(--gold-soft); color:var(--gold);}
+.badge.sec{background:var(--danger-soft); color:var(--danger);}
+.badge.pipeline{background:var(--accent-soft); color:var(--accent);}
+.badge.tag{background:var(--surface-2); color:var(--ink-dim); border:1px solid var(--border);}
+
+tr.hidden{display:none;}
+.empty-row td{color:var(--ink-dim); text-align:center; padding:24px; font-size:13px;}
+
+.panel{border:1px solid var(--border); border-radius:10px; background:var(--surface); padding:16px 18px; margin-top:14px; box-shadow:var(--shadow);}
+.panel h3{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-dim); margin-bottom:10px;}
+.panel ul{margin:0; padding-left:20px; font-size:13.3px; display:flex; flex-direction:column; gap:6px;}
+.panel li{color:var(--ink);}
+.panel li b{font-family:'IBM Plex Mono',monospace; font-weight:600;}
+
+.state-msg{color:var(--ink-dim); font-size:13.5px; padding:20px 0;}
+
+footer{max-width:1180px; margin:0 auto; padding:0 clamp(16px,4vw,48px) 60px; color:var(--ink-dim); font-size:12.5px; border-top:1px solid var(--border); padding-top:18px;}
+
+@media (max-width:820px){
+  nav.jump{display:none;}
+  main{padding-top:20px;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="eyebrow">Internal reference — CFD / HPC tooling</div>
+    <h1>Library of Scripts</h1>
+    <p class="sub">Every submission, pre-/post-processing, and utility script across the group's simulation codes, generated live from the header block in each script — see <code class="mono">docs/SCRIPT_HEADERS.md</code>.</p>
+    <div class="statrow" id="statrow"></div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <input id="search" type="text" placeholder="Search by name, purpose, or tag — e.g. &quot;slurm&quot;, &quot;vtk&quot;, &quot;dup&quot;…" autocomplete="off">
+    <div id="chipRow" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+    <span class="count-note" id="countNote"></span>
+  </div>
+</div>
+
+<main>
+  <nav class="jump" id="jumpNav"></nav>
+  <div class="content" id="content">
+    <p class="state-msg" id="stateMsg">Loading inventory.json…</p>
+  </div>
+</main>
+
+<footer>Generated from <code class="mono">docs/inventory.json</code>, which is rebuilt from script header blocks by <code class="mono">docs/generate_inventory.py</code> (auto-run by the pre-commit hook — see <code class="mono">docs/HOOKS.md</code>). Never edit this page's data by hand — edit the script header instead.</footer>
+
+<script>
+const BADGE_LABEL = {dup:"duplicate", sec:"security", pipeline:"pipeline"};
+const BADGE_CLASS = new Set(["dup","sec","pipeline"]);
+
+async function init(){
+  const stateMsg = document.getElementById('stateMsg');
+  let data;
+  try{
+    const res = await fetch('inventory.json', {cache:'no-store'});
+    if(!res.ok) throw new Error(res.status);
+    data = await res.json();
+  }catch(err){
+    stateMsg.textContent = 'Could not load inventory.json — run docs/generate_inventory.py from the repo root, then reload.';
+    return;
+  }
+  stateMsg.remove();
+  render(data);
+}
+
+function render(data){
+  const categories = data.categories || [];
+  const totalScripts = categories.reduce((s,c)=>s+c.scripts.length,0);
+  const dupCount = categories.reduce((s,c)=>s+c.scripts.filter(sc=>sc.tags.includes('dup')).length,0);
+  const secCount = categories.reduce((s,c)=>s+c.scripts.filter(sc=>sc.tags.includes('sec')).length,0);
+
+  const statrow = document.getElementById('statrow');
+  [["Categories",categories.length],["Scripts",totalScripts],["Flagged duplicates",dupCount],["Security flags",secCount]]
+    .forEach(([label,val])=>{
+      const el = document.createElement('div'); el.className='stat';
+      el.innerHTML = `<b>${val}</b><span>${label}</span>`;
+      statrow.appendChild(el);
+    });
+
+  const jumpNav = document.getElementById('jumpNav');
+  const content = document.getElementById('content');
+  const chipRow = document.getElementById('chipRow');
+  const search = document.getElementById('search');
+  const countNote = document.getElementById('countNote');
+  let activeCat = null;
+
+  categories.forEach(cat=>{
+    const slug = cat.category.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+
+    const a = document.createElement('a');
+    a.href = '#'+slug; a.textContent = cat.category;
+    jumpNav.appendChild(a);
+
+    const chip = document.createElement('button');
+    chip.className='chip'; chip.textContent=cat.category; chip.setAttribute('aria-pressed','false');
+    chip.addEventListener('click', ()=>{
+      activeCat = activeCat===cat.category ? null : cat.category;
+      document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed', c.textContent===activeCat ? 'true':'false'));
+      applyFilter();
+    });
+    chipRow.appendChild(chip);
+
+    const section = document.createElement('section');
+    section.className='cat'; section.id = slug;
+    section.innerHTML = `
+      <div class="cat-head"><h2>${escapeHtml(cat.category)}</h2><span class="cat-tag">${cat.scripts.length} script${cat.scripts.length===1?'':'s'}</span></div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Script</th><th>Purpose</th><th>Usage</th></tr></thead>
+          <tbody>
+            ${cat.scripts.map(s=>{
+              const search = [s.name, s.purpose, s.usage, s.note, ...(s.tags||[])].join(' ').toLowerCase().replace(/"/g,'&quot;');
+              const badges = (s.tags||[]).filter(t=>t).map(t=>{
+                const cls = BADGE_CLASS.has(t) ? t : 'tag';
+                const label = BADGE_LABEL[t] || t;
+                return `<span class="badge ${cls}">${escapeHtml(label)}</span>`;
+              }).join('');
+              return `
+              <tr data-search="${search}" data-cat="${escapeHtml(cat.category)}">
+                <td class="name">${escapeHtml(s.name)}</td>
+                <td class="purpose">${escapeHtml(s.purpose)}${s.note?`<div style="color:var(--ink-dim); font-size:12.3px; margin-top:4px;">${escapeHtml(s.note)}</div>`:''}${badges?`<div class="badges">${badges}</div>`:''}</td>
+                <td class="usage"><code>${escapeHtml(s.usage)}</code></td>
+              </tr>`;
+            }).join('')}
+            <tr class="empty-row hidden"><td colspan="3">No scripts match.</td></tr>
+          </tbody>
+        </table>
+      </div>`;
+    content.appendChild(section);
+  });
+
+  function applyFilter(){
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('section.cat').forEach(section=>{
+      let sectionVisible = 0;
+      section.querySelectorAll('tbody tr:not(.empty-row)').forEach(row=>{
+        const matchesQ = !q || row.dataset.search.includes(q);
+        const matchesCat = !activeCat || row.dataset.cat === activeCat;
+        const show = matchesQ && matchesCat;
+        row.classList.toggle('hidden', !show);
+        if(show){ sectionVisible++; visible++; }
+      });
+      section.querySelectorAll('.empty-row').forEach(er=>er.classList.toggle('hidden', sectionVisible!==0));
+      section.style.display = (activeCat && activeCat!==section.querySelector('h2').textContent) ? 'none' : '';
+    });
+    countNote.textContent = `${visible} / ${totalScripts} scripts`;
+  }
+  search.addEventListener('input', applyFilter);
+  applyFilter();
+}
+
+function escapeHtml(str){
+  return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Local (non-SLURM) sweep runner over wind angles: edits ABLConditions, decompose/run/reconstruct/move per angle.
+# usage: ./runalldegrees.sh; edit nProcs/startAngle/endAngle/interval.
+# tags: submission
+# ---
 nProcs=16	# Number of processors used for simpleFoam (This will automatically change system/decomposeParDict to nProcs)
 verbose=0	# Would you like to print extra information? (Print sed success change)
 simEndTime=1200	# Simulation end time (important to set system/controlDict/endTime == simEndTime)

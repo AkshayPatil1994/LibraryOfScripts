@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Verifies presence of expected Nek5000-style field output files (fields/channel_test.$num) over a numbered range.
+# usage: edit start/end/interval at top, run in case dir.
+# tags: postprocessing, utility
+# note: same template as CaNS/checkfiles.sh, single-file-per-step naming — dup.
+# ---
 
 start=500 	# Starting index of the file
 end=528500	# Ending index of the file

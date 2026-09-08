@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Loops over numbered case folders extracting residuals from run.log via inline getlogdata function.
+# usage: edit startindex/endindex, run in results dir.
+# tags: postprocessing, analysis
+# note: duplicate logic of fetch_allresiduals.sh/functions.sh — dup.
+# ---
 
 # Source the functions.sh file
 source functions.sh

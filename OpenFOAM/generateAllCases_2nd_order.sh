@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Same as generateAllCases_1st_order.sh but also copies prior 1st-order results for restart.
+# usage: edit params, run in dir with orgCase/ and resultsLocation.
+# tags: prep, pipeline
+# ---
 # User input parameters
 startAngle=1			# Starting angle of the simulations
 interval=1			# Interval between each case

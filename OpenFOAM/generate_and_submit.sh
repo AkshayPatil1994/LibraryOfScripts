@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Creates per-angle case dirs from orgCase/, edits ABLConditions + job name, and submits each via sbatch.
+# usage: edit startAngle/endAngle, run in dir with orgCase/submit.sh.
+# tags: prep, submission, pipeline
+# ---
 # User input parameters
 startAngle=1			# Starting angle of the simulations
 interval=1			# Interval between each case

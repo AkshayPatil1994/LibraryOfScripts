@@ -1,3 +1,8 @@
+# ---
+# purpose: Reads a uDALES xytdump.*.nc (horizontally-averaged) netCDF output and plots streamwise velocity profiles vs height.
+# usage: edit filename/Uref/Zref/plot_index_start/avg_index_start at top, run.
+# tags: postprocessing, analysis
+# ---
 import matplotlib.pyplot as plt
 import netCDF4 as nc
 # USER-DEFINED PARAMETERS

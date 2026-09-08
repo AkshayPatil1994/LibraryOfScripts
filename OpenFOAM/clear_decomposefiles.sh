@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Removes processor* decomposition folders from a range of numbered case directories.
+# usage: edit startAngle/interval/endAngle inline, run directly.
+# tags: cleanup, utility
+# ---
 # User input parameters
 startAngle=1			# Starting angle of the simulations
 interval=1			# Interval between each case

@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Creates per-angle case directories from an orgCase/ template, edits ABLConditions + job name, copies files (does not submit).
+# usage: edit startAngle/interval/endAngle, run in dir containing orgCase/.
+# tags: prep, pipeline
+# ---
 # User input parameters
 startAngle=1			# Starting angle of the simulations
 interval=1			# Interval between each case

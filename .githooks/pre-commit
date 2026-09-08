@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Regenerates docs/inventory.json from script headers before every commit,
+# and stages the result so the wiki data never drifts from the repo.
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+python3 "$repo_root/docs/generate_inventory.py"
+git -C "$repo_root" add docs/inventory.json

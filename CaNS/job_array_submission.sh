@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Generates and submits a chain of dependent CaNS DNS jobs, incrementing end-iteration each loop, with restart flag toggling.
+# usage: edit numberOfJobs/startValue/siminterval/casename/orgslurmfilename at top, run in case dir.
+# tags: submission, pipeline
+# note: simpler predecessor of jobarraysubmission_synthetic_snellius.sh — dup.
+# ---
 
 numberOfJobs=2			# Total number of jobs to run i.e., siminterval*10 is the final end iterations
 startValue=120000		# Starting the iteration for job1 with this value of end iterations

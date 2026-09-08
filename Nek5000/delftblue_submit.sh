@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: SLURM batch script that runs one Nek5000 job in a chained sequence: restores latest checkpoint, runs nek5000, archives new checkpoints.
+# usage: submitted via sbatch with --job-name="N_casename"; expects inputFiles/<N>_duct.par to exist.
+# tags: submission, pipeline
+# note: worker script invoked by dependency_array_submission.sh.
+# ---
 
 #SBATCH --job-name="1_tw5-9000" 		# Name of the job for checking
 #SBATCH --time=96:00:00                 # Wall clock time requested hh:mm:ss

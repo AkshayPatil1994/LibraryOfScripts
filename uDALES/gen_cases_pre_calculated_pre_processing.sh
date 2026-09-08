@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Generates numbered experiment directories for multiple wind angles, copying pre-computed geometry/IBM data and submit scripts.
+# usage: edit angles/geo_location/geo_prefix/ibm_prefix/submit_jobs vars, run ./gen_cases_pre_calculated_pre_processing.sh.
+# tags: prep, submission
+# note: near-duplicate of gen_submit_multiple_cases.sh — dup, assumes IBM pre-processing already done
+# ---
 angles="1.89,26.61,54.97"
 geo_location="nominal_les_geometry"						# Location where all geometry is stored
 geo_prefix="campus"								# Prefix used for the geometry

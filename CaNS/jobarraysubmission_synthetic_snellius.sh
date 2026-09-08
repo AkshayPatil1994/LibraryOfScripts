@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Generates and submits a chain of dependent CaNS jobs with synthetic initial condition support and scratch-space staging via rsync (Snellius).
+# usage: edit config vars at top, run in case dir.
+# tags: submission, pipeline
+# note: more advanced version of job_array_submission.sh — dup.
+# ---
 
 ic_synthetic='yes'		# Is the spin-up synthetic? (yes, no)
 numberOfJobs=8			# Total number of jobs to run i.e., siminterval*10 is the final end iterations

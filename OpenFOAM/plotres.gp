@@ -1,3 +1,9 @@
+# ---
+# purpose: Gnuplot script to plot 7 residual series reading fixed filenames from residuals/.
+# usage: gnuplot plotres.gp; edit fileInt/turbClos inline.
+# tags: analysis
+# note: overlaps with plotResiduals.gp — dup.
+# ---
 # Request argument from the user for case index
 fileInt=5000	# Location
 turbClos="kEpsilon"	# turbModel

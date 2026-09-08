@@ -1,3 +1,8 @@
+# ---
+# purpose: Shared Python helper library for point sampling, mesh/point plotting, OBJ loading, OpenFOAM probe reading, plot styling.
+# usage: import via 'from functions import ...'.
+# tags: utility, template
+# ---
 import numpy as np
 import random
 import matplotlib.pyplot as plt

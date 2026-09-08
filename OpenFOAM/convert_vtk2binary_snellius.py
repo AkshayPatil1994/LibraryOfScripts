@@ -1,3 +1,9 @@
+# ---
+# purpose: Same VTK-to-binary conversion but for Snellius HPC directory layout, with a pre-flight file-existence check.
+# usage: edit vars inline, run as script.
+# tags: postprocessing, pipeline
+# note: near-duplicate of convert_vtk2binary.py — dup.
+# ---
 from vtk.util.numpy_support import vtk_to_numpy
 from vtk import vtkPolyDataReader
 import numpy as np

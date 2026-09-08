@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: rsyncs simulation result folders from a remote HPC (via ssh alias) to local fields_<angle> dirs.
+# usage: edit startAngle/endAngle/location inline.
+# tags: utility
+# ---
 
 # User input parameters
 startAngle=50			# Starting angle of the simulations

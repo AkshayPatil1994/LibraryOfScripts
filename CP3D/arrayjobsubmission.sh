@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Generates a chain of restart input files and SLURM submission scripts for a sequence of CP3D DNS jobs, incrementing iteration/restart-time windows each loop.
+# usage: edit numberOfJobs/siminterval/casename etc at top, run in case directory; sbatch calls commented out by default.
+# tags: submission, pipeline
+# ---
 
 numberOfJobs=16			# Total number of jobs to run i.e., siminterval*10 is the final end iterations
 startValue=1    	        # Starting the iteration for job1 with this value of end iterations

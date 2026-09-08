@@ -1,3 +1,8 @@
+# ---
+# purpose: Batch time-averages fielddump.*.nc outputs across a decomposed grid for a range of experiment numbers, in parallel.
+# usage: edit procx/procy/average_last_n/start_exp_num/end_exp_num/num_parallel_workers at top, run.
+# tags: postprocessing, pipeline
+# ---
 import xarray as xr
 import time
 import os

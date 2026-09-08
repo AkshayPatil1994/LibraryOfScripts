@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Runs OpenFOAM postProcess (simpleFoam -postProcess -latestTime) across a sweep of angle case results.
+# usage: edit simEndTime/startAngle/endAngle/interval; run in case dir.
+# tags: postprocessing, pipeline
+# ---
 simEndTime=3000 # Simulation end time
 startAngle=5   # Starting angle of the simulation
 endAngle=355    # Ending value of the angle

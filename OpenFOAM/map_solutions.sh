@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Maps a converged solution's turbulence fields from a source case into a target case's processor dirs for warm-starting a new inflow direction.
+# usage: ./map_solutions.sh /path/source /path/target.
+# tags: utility
+# ---
 # Check if both source and target directories were provided
 if [ $# -lt 2 ]; then
     echo "Usage: $0 /path/to/source_directory /path/to/target_directory"

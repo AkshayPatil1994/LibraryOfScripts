@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: SLURM job that decomposes, runs simpleFoam in parallel, and reconstructs one OpenFOAM case (1st order).
+# usage: sbatch RANS_OF_Parallel_Base_Script.sh; edit nProcs/simEndTime inline.
+# tags: submission, pipeline, template
+# note: near-identical to submit_1storder.sh — dup.
+# ---
 
 #SBATCH --job-name="NameOfJob"		# Name of the job for checking
 #SBATCH --time=04:30:00			      # Wall clock time requested

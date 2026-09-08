@@ -1,3 +1,8 @@
+# ---
+# purpose: Computes precursor/driven-simulation timing parameters (friction velocity, eddy turnover time, convective time scale, precursor duration, driverstore count).
+# usage: edit constants at top (dtmax, Tsim, H, Lb, Uref, Zref, z0, eddy_factor), run; prints results.
+# tags: prep
+# ---
 import numpy as np
 
 dtmax = 0.18    # Maximum time step allowed in s

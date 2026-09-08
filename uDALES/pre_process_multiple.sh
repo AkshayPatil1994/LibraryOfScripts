@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Sets up experiment directories from geometry files and runs uDALES's write_inputs.sh pre-processing (facet/IBM generation) inline, waiting for completion.
+# usage: edit angles/geo_location/geo_prefix/exp_start_num/max_wait_time/uDALES_HOME vars, run.
+# tags: prep, pipeline
+# note: produces IBM data consumed by gen_cases_pre_calculated_pre_processing.sh
+# ---
 angles="1.89"
 geo_location="nominal_les_geometry"						# Location where all geometry is stored
 geo_prefix="campus"										# Prefix used for the geometry

@@ -1,3 +1,9 @@
+# ---
+# purpose: Compares 2D (direction+speed) LHS sampling vs Maximum Dissimilarity Algorithm sampling from joint wind PDF.
+# usage: run as script; edit n_samples/wind_datafilename inline.
+# tags: prep, analysis
+# note: extends latin_hypercube_sampling.py — dup.
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d

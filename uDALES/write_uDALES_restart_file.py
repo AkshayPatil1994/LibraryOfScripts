@@ -1,3 +1,8 @@
+# ---
+# purpose: uDALESRestartWriter class writing uDALES binary restart/warmstart files per processor from field-data dictionaries, e.g. to bootstrap a run from GenIC velocity slices.
+# usage: edit USER INPUT DATA (nx, ny, nz, exp_num, nprocx, nprocy, num_scalars) in __main__, run.
+# tags: prep
+# ---
 import numpy as np
 import struct
 from pathlib import Path

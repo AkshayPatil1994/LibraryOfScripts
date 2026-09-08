@@ -1,3 +1,8 @@
+# ---
+# purpose: Loads fluid_boundary_c.txt (IBM fluid boundary points) and scatter-plots point locations colored by a third column.
+# usage: run from a directory containing fluid_boundary_c.txt.
+# tags: postprocessing, analysis
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 #

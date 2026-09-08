@@ -1,3 +1,9 @@
+# ---
+# purpose: Multiprocessing version of risk-map calculation across z-indices.
+# usage: python parallel_calculate_risk; edit casename/zindices/n_processors inline.
+# tags: analysis
+# note: near-duplicate of calculate_risk — dup.
+# ---
 import numpy as np
 from tqdm import tqdm
 import multiprocessing as mp

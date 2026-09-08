@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Batch-generates signed distance fields for a building geometry at multiple rotation angles, converts output to CaNS array format, archives results per angle.
+# usage: run in the stl2sdf project dir; edit runmat array of angles.
+# tags: prep, pipeline
+# ---
 
 # Initalise python environment
 source /home/apatil5/pythonenvs/stlpy/bin/activate

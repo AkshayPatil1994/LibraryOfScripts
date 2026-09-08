@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Extracts solver residuals (p, U, k, epsilon) from per-case run.log files across numbered folders.
+# usage: edit startindex/endindex/logfile inline, run in results dir.
+# tags: postprocessing, analysis
+# note: near-duplicate of getResiduals.sh and functions.sh's getlogdata() — dup.
+# ---
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   #
 #   FUNCTION TO GET RESIDUALS DATA FROM OPENFOAM LOGFILE    #
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   #

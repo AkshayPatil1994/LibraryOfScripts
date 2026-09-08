@@ -1,3 +1,8 @@
+# ---
+# purpose: Computes recommended domain grid (Nx, Ny, Nz), processor decomposition, and stretching parameters for a uDALES case setup.
+# usage: edit USER INPUT PARAMETERS block at top, run python grid_calculations.py.
+# tags: prep
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 from functions import gen_grid, round_to_multiple, plot_grid, get_decomp, getN

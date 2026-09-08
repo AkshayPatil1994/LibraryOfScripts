@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Prints an animated, colorized ASCII Christmas tree with a custom message in the terminal.
+# usage: ./merry_christmas.sh [interval] [message] (both optional); Ctrl+C to exit.
+# tags: utility
+# ---
 
 # Setup the default user input values
 INTERVAL=${1:-0.5}                      # Default 0.5 seconds

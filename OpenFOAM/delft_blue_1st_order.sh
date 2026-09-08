@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: SLURM job running a full sweep of angles, 1st-order simpleFoam, sequentially (decompose, run, reconstruct, move).
+# usage: sbatch delft_blue_1st_order.sh; edit startAngle/interval/endAngle.
+# tags: submission
+# note: pairs with delft_blue_2nd_order.sh — dup-cluster with other submit_* scripts.
+# ---
 
 #SBATCH --job-name="2p2-2ndord"		# Name of the job for checking
 #SBATCH --time=48:00:00			# Wall clock time requested

@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: SLURM job that decomposes/runs(1st order)/reconstructs a single pre-set-up case.
+# usage: sbatch submit_1storder.sh; edit SBATCH header + nProcs/simEndTime.
+# tags: submission, template, pipeline
+# note: near-identical to RANS_OF_Parallel_Base_Script.sh and submit_2ndorder.sh — dup.
+# ---
 
 #SBATCH --job-name="a112l1p2"		# Name of the job for checking
 #SBATCH --time=04:30:00			# Wall clock time requested

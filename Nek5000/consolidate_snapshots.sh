@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Merges scattered fieldsN/duct0.f* checkpoint directories into one fields/ directory with sequential numbering.
+# usage: run once in a Nek5000 case directory after multiple job runs.
+# tags: cleanup, pipeline
+# ---
 
 # Consolidate all duct0.f files from fields<num> directories into a single fields directory
 

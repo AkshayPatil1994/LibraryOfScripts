@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Generates and submits SLURM job scripts in N parallel dependency chains for a runtype x angle x mesh sweep.
+# usage: ./chainsubmission.sh [--dry-run]; needs template.slurm in cwd.
+# tags: submission, pipeline
+# ---
 # chainsubmission.sh - Script to submit multiple OpenFOAM simulations with varying parameters
 # This script creates multiple independent chains of jobs with controlled parallelism
 # Usage: ./chainsubmission.sh [--dry-run]

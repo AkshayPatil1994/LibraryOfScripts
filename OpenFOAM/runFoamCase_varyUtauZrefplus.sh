@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Runs a parameter sweep of simpleFoam cases varying inlet friction velocity and zplusref via ABLConditions edits.
+# usage: ./runFoamCase_varyUtauZrefplus.sh; edit nprocs/totalIterations/utauarray/zplusref arrays.
+# tags: submission
+# ---
 
 # User input data for the simulations
 nprocs=24

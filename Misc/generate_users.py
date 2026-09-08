@@ -1,3 +1,9 @@
+# ---
+# purpose: Generates a list of funny random usernames with random passwords, printed to stdout.
+# usage: python3 generate_users.py; edit num_users (default 12) to change count.
+# tags: utility
+# note: duplicate/near-duplicate of create_randomuserpass.py - dup; likely the input generator for create_users.sh's users.txt.
+# ---
 import random
 import string
 

@@ -1,0 +1,777 @@
+{
+  "generated_from": "script headers, see docs/SCRIPT_HEADERS.md",
+  "categories": [
+    {
+      "category": "CP3D",
+      "scripts": [
+        {
+          "name": "arrayjobsubmission.sh",
+          "path": "CP3D/arrayjobsubmission.sh",
+          "purpose": "Generates a chain of restart input files and SLURM submission scripts for a sequence of CP3D DNS jobs, incrementing iteration/restart-time windows each loop.",
+          "usage": "edit numberOfJobs/siminterval/casename etc at top, run in case directory; sbatch calls commented out by default.",
+          "tags": [
+            "submission",
+            "pipeline"
+          ],
+          "note": ""
+        }
+      ]
+    },
+    {
+      "category": "CaNS",
+      "scripts": [
+        {
+          "name": "checkfiles.sh",
+          "path": "CaNS/checkfiles.sh",
+          "purpose": "Verifies presence of expected velocity field binary output files (vex/vey/vez) over a numbered range to spot missing/incomplete output.",
+          "usage": "edit start/end/interval at top, run from case dir (expects data/ subfolder).",
+          "tags": [
+            "postprocessing",
+            "utility"
+          ],
+          "note": "same template as dopamine/checkfiles.sh, different file-naming convention \u2014 dup."
+        },
+        {
+          "name": "ffmpeg_makemovies.sh",
+          "path": "CaNS/ffmpeg_makemovies.sh",
+          "purpose": "Reference cookbook of ffmpeg one-liners (renaming, movie from image sequence, slow-motion, stacking, GIF) \u2014 not meant to run top-to-bottom.",
+          "usage": "copy/paste individual commands as needed, edit filenames per use.",
+          "tags": [
+            "postprocessing",
+            "utility",
+            "template"
+          ],
+          "note": ""
+        },
+        {
+          "name": "generateCopyList.sh",
+          "path": "CaNS/generateCopyList.sh",
+          "purpose": "Prints the list of vex/vey/vez filenames for a given index range, for building a copy/rsync file list.",
+          "usage": "edit st/en/inter at top, run and redirect stdout.",
+          "tags": [
+            "utility"
+          ],
+          "note": "same template as dopamine/genCopyList.sh \u2014 dup."
+        },
+        {
+          "name": "job_array_submission.sh",
+          "path": "CaNS/job_array_submission.sh",
+          "purpose": "Generates and submits a chain of dependent CaNS DNS jobs, incrementing end-iteration each loop, with restart flag toggling.",
+          "usage": "edit numberOfJobs/startValue/siminterval/casename/orgslurmfilename at top, run in case dir.",
+          "tags": [
+            "submission",
+            "pipeline"
+          ],
+          "note": "simpler predecessor of jobarraysubmission_synthetic_snellius.sh \u2014 dup."
+        },
+        {
+          "name": "jobarraysubmission_synthetic_snellius.sh",
+          "path": "CaNS/jobarraysubmission_synthetic_snellius.sh",
+          "purpose": "Generates and submits a chain of dependent CaNS jobs with synthetic initial condition support and scratch-space staging via rsync (Snellius).",
+          "usage": "edit config vars at top, run in case dir.",
+          "tags": [
+            "submission",
+            "pipeline"
+          ],
+          "note": "more advanced version of job_array_submission.sh \u2014 dup."
+        }
+      ]
+    },
+    {
+      "category": "Misc",
+      "scripts": [
+        {
+          "name": "convert_highres2lowred.sh",
+          "path": "Misc/convert_highres2lowred.sh",
+          "purpose": "Converts/downsamples an image (e.g. high-res PDF) to a lower-quality output using ImageMagick.",
+          "usage": "./convert_highres2lowred.sh <density> <input_file> <quality> <output_file>",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "create_randomuserpass.py",
+          "path": "Misc/create_randomuserpass.py",
+          "purpose": "Generates a list of funny random usernames with random passwords, printed to stdout.",
+          "usage": "python3 create_randomuserpass.py; edit num_users in-script to change count.",
+          "tags": [
+            "utility"
+          ],
+          "note": "near-identical to generate_users.py - dup."
+        },
+        {
+          "name": "create_users.sh",
+          "path": "Misc/create_users.sh",
+          "purpose": "Bulk-creates Linux system users (with group, shell, disk quota, OpenFOAM env setup) from a username/password file, or previews them in test mode.",
+          "usage": "edit config vars at top, then sudo ./create_users.sh; reads users.txt (username/password pairs) in cwd.",
+          "tags": [
+            "utility",
+            "sec"
+          ],
+          "note": "expects plaintext users.txt and echoes passwords in test mode - lab-only, never commit users.txt."
+        },
+        {
+          "name": "generate_qrcode.py",
+          "path": "Misc/generate_qrcode.py",
+          "purpose": "Prompts for a URL and generates/saves a QR code image for it.",
+          "usage": "python3 generate_qrcode.py, then enter link at prompt; outputs qrcode.png.",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "generate_users.py",
+          "path": "Misc/generate_users.py",
+          "purpose": "Generates a list of funny random usernames with random passwords, printed to stdout.",
+          "usage": "python3 generate_users.py; edit num_users (default 12) to change count.",
+          "tags": [
+            "utility"
+          ],
+          "note": "duplicate/near-duplicate of create_randomuserpass.py - dup; likely the input generator for create_users.sh's users.txt."
+        },
+        {
+          "name": "merry_christmas.sh",
+          "path": "Misc/merry_christmas.sh",
+          "purpose": "Prints an animated, colorized ASCII Christmas tree with a custom message in the terminal.",
+          "usage": "./merry_christmas.sh [interval] [message] (both optional); Ctrl+C to exit.",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        }
+      ]
+    },
+    {
+      "category": "Nek5000",
+      "scripts": [
+        {
+          "name": "consolidate_snapshots.sh",
+          "path": "Nek5000/consolidate_snapshots.sh",
+          "purpose": "Merges scattered fieldsN/duct0.f* checkpoint directories into one fields/ directory with sequential numbering.",
+          "usage": "run once in a Nek5000 case directory after multiple job runs.",
+          "tags": [
+            "cleanup",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "delftblue_submit.sh",
+          "path": "Nek5000/delftblue_submit.sh",
+          "purpose": "SLURM batch script that runs one Nek5000 job in a chained sequence: restores latest checkpoint, runs nek5000, archives new checkpoints.",
+          "usage": "submitted via sbatch with --job-name=\"N_casename\"; expects inputFiles/<N>_duct.par to exist.",
+          "tags": [
+            "submission",
+            "pipeline"
+          ],
+          "note": "worker script invoked by dependency_array_submission.sh."
+        },
+        {
+          "name": "dependency_array_submission.sh",
+          "path": "Nek5000/dependency_array_submission.sh",
+          "purpose": "Driver that prepares and submits a chain of dependent Nek5000 jobs, writing per-job .par files and submitting via SLURM dependency chain.",
+          "usage": "edit numberOfJobs/startValue/siminterval/casename/nekcase/parfile at top, run in case dir; submit_jobs toggle for dry-run.",
+          "tags": [
+            "submission",
+            "pipeline"
+          ],
+          "note": "orchestrates delftblue_submit.sh."
+        }
+      ]
+    },
+    {
+      "category": "OpenFOAM",
+      "scripts": [
+        {
+          "name": "RANS_OF_Parallel_Base_Script.sh",
+          "path": "OpenFOAM/RANS_OF_Parallel_Base_Script.sh",
+          "purpose": "SLURM job that decomposes, runs simpleFoam in parallel, and reconstructs one OpenFOAM case (1st order).",
+          "usage": "sbatch RANS_OF_Parallel_Base_Script.sh; edit nProcs/simEndTime inline.",
+          "tags": [
+            "submission",
+            "pipeline",
+            "template"
+          ],
+          "note": "near-identical to submit_1storder.sh \u2014 dup."
+        },
+        {
+          "name": "chainsubmission.sh",
+          "path": "OpenFOAM/chainsubmission.sh",
+          "purpose": "Generates and submits SLURM job scripts in N parallel dependency chains for a runtype x angle x mesh sweep.",
+          "usage": "./chainsubmission.sh [--dry-run]; needs template.slurm in cwd.",
+          "tags": [
+            "submission",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "clear_decomposefiles.sh",
+          "path": "OpenFOAM/clear_decomposefiles.sh",
+          "purpose": "Removes processor* decomposition folders from a range of numbered case directories.",
+          "usage": "edit startAngle/interval/endAngle inline, run directly.",
+          "tags": [
+            "cleanup",
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "clusterScaling.py",
+          "path": "OpenFOAM/clusterScaling.py",
+          "purpose": "Plots parallel scaling (speedup/efficiency) from per-core-count timing logs (cpuN.dat files).",
+          "usage": "run as script in dir containing cpuN.dat files.",
+          "tags": [
+            "analysis"
+          ],
+          "note": ""
+        },
+        {
+          "name": "convert_vtk2binary.py",
+          "path": "OpenFOAM/convert_vtk2binary.py",
+          "purpose": "Converts VTK cutting-plane U/k fields to flat binary files per height/angle (local cluster layout).",
+          "usage": "edit casename/paths inline, run as script.",
+          "tags": [
+            "postprocessing",
+            "pipeline"
+          ],
+          "note": "near-duplicate of convert_vtk2binary_snellius.py \u2014 dup, differs in source path layout and z-levels."
+        },
+        {
+          "name": "convert_vtk2binary_snellius.py",
+          "path": "OpenFOAM/convert_vtk2binary_snellius.py",
+          "purpose": "Same VTK-to-binary conversion but for Snellius HPC directory layout, with a pre-flight file-existence check.",
+          "usage": "edit vars inline, run as script.",
+          "tags": [
+            "postprocessing",
+            "pipeline"
+          ],
+          "note": "near-duplicate of convert_vtk2binary.py \u2014 dup."
+        },
+        {
+          "name": "copy_files_within_HPC.sh",
+          "path": "OpenFOAM/copy_files_within_HPC.sh",
+          "purpose": "rsyncs simulation output field folder and run.log from numbered case dirs to a group storage location (intra-HPC).",
+          "usage": "edit startindex/endindex/location inline.",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "copy_filesfromHPC.sh",
+          "path": "OpenFOAM/copy_filesfromHPC.sh",
+          "purpose": "rsyncs simulation result folders from a remote HPC (via ssh alias) to local fields_<angle> dirs.",
+          "usage": "edit startAngle/endAngle/location inline.",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "copyfiles4riskmap.sh",
+          "path": "OpenFOAM/copyfiles4riskmap.sh",
+          "purpose": "Copies U/k result fields into numbered dirs for risk-map post-processing.",
+          "usage": "edit simEndTime/startAngle/endAngle inline.",
+          "tags": [
+            "utility",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "delft_blue_1st_order.sh",
+          "path": "OpenFOAM/delft_blue_1st_order.sh",
+          "purpose": "SLURM job running a full sweep of angles, 1st-order simpleFoam, sequentially (decompose, run, reconstruct, move).",
+          "usage": "sbatch delft_blue_1st_order.sh; edit startAngle/interval/endAngle.",
+          "tags": [
+            "submission"
+          ],
+          "note": "pairs with delft_blue_2nd_order.sh \u2014 dup-cluster with other submit_* scripts."
+        },
+        {
+          "name": "delft_blue_2nd_order.sh",
+          "path": "OpenFOAM/delft_blue_2nd_order.sh",
+          "purpose": "SLURM job running a sweep of angles, 2nd-order simpleFoam, restarting from prior 1st-order results.",
+          "usage": "sbatch delft_blue_2nd_order.sh; edit params inline.",
+          "tags": [
+            "submission"
+          ],
+          "note": "pairs with delft_blue_1st_order.sh \u2014 dup-cluster."
+        },
+        {
+          "name": "fetch_allresiduals.sh",
+          "path": "OpenFOAM/fetch_allresiduals.sh",
+          "purpose": "Extracts solver residuals (p, U, k, epsilon) from per-case run.log files across numbered folders.",
+          "usage": "edit startindex/endindex/logfile inline, run in results dir.",
+          "tags": [
+            "postprocessing",
+            "analysis"
+          ],
+          "note": "near-duplicate of getResiduals.sh and functions.sh's getlogdata() \u2014 dup."
+        },
+        {
+          "name": "first_order_specifiedarray.sh",
+          "path": "OpenFOAM/first_order_specifiedarray.sh",
+          "purpose": "SLURM job running 1st-order simpleFoam only for an explicit hand-picked list of angles.",
+          "usage": "sbatch first_order_specifiedarray.sh; edit simangles array.",
+          "tags": [
+            "submission"
+          ],
+          "note": ""
+        },
+        {
+          "name": "functions.py",
+          "path": "OpenFOAM/functions.py",
+          "purpose": "Shared Python helper library for point sampling, mesh/point plotting, OBJ loading, OpenFOAM probe reading, plot styling.",
+          "usage": "import via 'from functions import ...'.",
+          "tags": [
+            "utility",
+            "template"
+          ],
+          "note": ""
+        },
+        {
+          "name": "functions.sh",
+          "path": "OpenFOAM/functions.sh",
+          "purpose": "Shared bash helper library defining getlogdata() to extract solver residuals from a log file.",
+          "usage": "source functions.sh, then call getlogdata logfile prefix.",
+          "tags": [
+            "utility",
+            "template"
+          ],
+          "note": "canonical version of residual-extraction logic duplicated in fetch_allresiduals.sh/getResiduals.sh \u2014 dup."
+        },
+        {
+          "name": "generateAllCases_1st_order.sh",
+          "path": "OpenFOAM/generateAllCases_1st_order.sh",
+          "purpose": "Creates per-angle case directories from an orgCase/ template, edits ABLConditions + job name, copies files (does not submit).",
+          "usage": "edit startAngle/interval/endAngle, run in dir containing orgCase/.",
+          "tags": [
+            "prep",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "generateAllCases_2nd_order.sh",
+          "path": "OpenFOAM/generateAllCases_2nd_order.sh",
+          "purpose": "Same as generateAllCases_1st_order.sh but also copies prior 1st-order results for restart.",
+          "usage": "edit params, run in dir with orgCase/ and resultsLocation.",
+          "tags": [
+            "prep",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "generate_and_submit.sh",
+          "path": "OpenFOAM/generate_and_submit.sh",
+          "purpose": "Creates per-angle case dirs from orgCase/, edits ABLConditions + job name, and submits each via sbatch.",
+          "usage": "edit startAngle/endAngle, run in dir with orgCase/submit.sh.",
+          "tags": [
+            "prep",
+            "submission",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "generate_samplingPoints.py",
+          "path": "OpenFOAM/generate_samplingPoints.py",
+          "purpose": "Generates/loads uniformly distributed 3D sampling points within a bounding box and plots them against a building mesh.",
+          "usage": "run as script; edit ximin/ximax/obj_file_path/flags inline.",
+          "tags": [
+            "prep",
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "getResiduals.sh",
+          "path": "OpenFOAM/getResiduals.sh",
+          "purpose": "Loops over numbered case folders extracting residuals from run.log via inline getlogdata function.",
+          "usage": "edit startindex/endindex, run in results dir.",
+          "tags": [
+            "postprocessing",
+            "analysis"
+          ],
+          "note": "duplicate logic of fetch_allresiduals.sh/functions.sh \u2014 dup."
+        },
+        {
+          "name": "latin_hypercube_sampling.py",
+          "path": "OpenFOAM/latin_hypercube_sampling.py",
+          "purpose": "Generates Latin Hypercube samples of wind direction from historical wind data via inverse-CDF sampling.",
+          "usage": "run as script; edit n_samples/wind_datafilename inline.",
+          "tags": [
+            "prep",
+            "analysis"
+          ],
+          "note": "predecessor of lhs_mda_2d_comparison.py \u2014 dup."
+        },
+        {
+          "name": "lhs_mda_2d_comparison.py",
+          "path": "OpenFOAM/lhs_mda_2d_comparison.py",
+          "purpose": "Compares 2D (direction+speed) LHS sampling vs Maximum Dissimilarity Algorithm sampling from joint wind PDF.",
+          "usage": "run as script; edit n_samples/wind_datafilename inline.",
+          "tags": [
+            "prep",
+            "analysis"
+          ],
+          "note": "extends latin_hypercube_sampling.py \u2014 dup."
+        },
+        {
+          "name": "map_solutions.sh",
+          "path": "OpenFOAM/map_solutions.sh",
+          "purpose": "Maps a converged solution's turbulence fields from a source case into a target case's processor dirs for warm-starting a new inflow direction.",
+          "usage": "./map_solutions.sh /path/source /path/target.",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "movefiles.sh",
+          "path": "OpenFOAM/movefiles.sh",
+          "purpose": "Moves individual field files into a time-stamped subfolder per angle.",
+          "usage": "edit startAngle/interval/endAngle inline.",
+          "tags": [
+            "utility"
+          ],
+          "note": ""
+        },
+        {
+          "name": "pedestrian_wind_comfort.py",
+          "path": "OpenFOAM/pedestrian_wind_comfort.py",
+          "purpose": "Computes NEN8100 pedestrian wind comfort class probabilities from simulated wind-speed binaries and historical wind data.",
+          "usage": "run as script; edit wind_step/paths/z_comfort/thresholds inline.",
+          "tags": [
+            "analysis",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "postProcess.sh",
+          "path": "OpenFOAM/postProcess.sh",
+          "purpose": "Runs OpenFOAM postProcess (simpleFoam -postProcess -latestTime) across a sweep of angle case results.",
+          "usage": "edit simEndTime/startAngle/endAngle/interval; run in case dir.",
+          "tags": [
+            "postprocessing",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "runAllGeometryPrepAndMesh.sh",
+          "path": "OpenFOAM/runAllGeometryPrepAndMesh.sh",
+          "purpose": "Generates cube geometry via gmsh, builds STL, runs surfaceFeatures/blockMesh/snappyHexMesh (serial).",
+          "usage": "./runAllGeometryPrepAndMesh.sh from case root.",
+          "tags": [
+            "prep",
+            "mesh"
+          ],
+          "note": ""
+        },
+        {
+          "name": "runAllGeometryPrep_TUDcampus.sh",
+          "path": "OpenFOAM/runAllGeometryPrep_TUDcampus.sh",
+          "purpose": "Copies 4 OBJ meshes, runs surfaceFeatures/blockMesh, then snappyHexMesh (parallel or serial), reconstructs and checks mesh.",
+          "usage": "./runAllGeometryPrep_TUDcampus.sh; edit nprocs/snapPar.",
+          "tags": [
+            "prep",
+            "mesh"
+          ],
+          "note": ""
+        },
+        {
+          "name": "runFoamCase_varyUtauZrefplus.sh",
+          "path": "OpenFOAM/runFoamCase_varyUtauZrefplus.sh",
+          "purpose": "Runs a parameter sweep of simpleFoam cases varying inlet friction velocity and zplusref via ABLConditions edits.",
+          "usage": "./runFoamCase_varyUtauZrefplus.sh; edit nprocs/totalIterations/utauarray/zplusref arrays.",
+          "tags": [
+            "submission"
+          ],
+          "note": ""
+        },
+        {
+          "name": "runalldegrees.sh",
+          "path": "OpenFOAM/runalldegrees.sh",
+          "purpose": "Local (non-SLURM) sweep runner over wind angles: edits ABLConditions, decompose/run/reconstruct/move per angle.",
+          "usage": "./runalldegrees.sh; edit nProcs/startAngle/endAngle/interval.",
+          "tags": [
+            "submission"
+          ],
+          "note": ""
+        },
+        {
+          "name": "submit_1storder.sh",
+          "path": "OpenFOAM/submit_1storder.sh",
+          "purpose": "SLURM job that decomposes/runs(1st order)/reconstructs a single pre-set-up case.",
+          "usage": "sbatch submit_1storder.sh; edit SBATCH header + nProcs/simEndTime.",
+          "tags": [
+            "submission",
+            "template",
+            "pipeline"
+          ],
+          "note": "near-identical to RANS_OF_Parallel_Base_Script.sh and submit_2ndorder.sh \u2014 dup."
+        },
+        {
+          "name": "submit_2ndorder.sh",
+          "path": "OpenFOAM/submit_2ndorder.sh",
+          "purpose": "Same as submit_1storder.sh but for 2nd-order scheme, longer simEndTime.",
+          "usage": "sbatch submit_2ndorder.sh.",
+          "tags": [
+            "submission",
+            "template",
+            "pipeline"
+          ],
+          "note": "dup-cluster with submit_1storder.sh."
+        },
+        {
+          "name": "submit_parallelruns.sh",
+          "path": "OpenFOAM/submit_parallelruns.sh",
+          "purpose": "Generic/templated SLURM job script with placeholder account/partition/OpenFOAM path values.",
+          "usage": "sbatch submit_parallelruns.sh after filling in placeholders.",
+          "tags": [
+            "submission",
+            "template"
+          ],
+          "note": "sanitized template version of submit_1storder.sh \u2014 dup."
+        },
+        {
+          "name": "terrain_gpkg_to_stl.py",
+          "path": "OpenFOAM/terrain_gpkg_to_stl.py",
+          "purpose": "Converts a GeoPackage point-cloud terrain into a triangulated STL surface for OpenFOAM.",
+          "usage": "python terrain_gpkg_to_stl.py; edit filepath/z_offset inline.",
+          "tags": [
+            "prep",
+            "mesh"
+          ],
+          "note": ""
+        }
+      ]
+    },
+    {
+      "category": "dopamine",
+      "scripts": [
+        {
+          "name": "checkfiles.sh",
+          "path": "dopamine/checkfiles.sh",
+          "purpose": "Verifies presence of expected Nek5000-style field output files (fields/channel_test.$num) over a numbered range.",
+          "usage": "edit start/end/interval at top, run in case dir.",
+          "tags": [
+            "postprocessing",
+            "utility"
+          ],
+          "note": "same template as CaNS/checkfiles.sh, single-file-per-step naming \u2014 dup."
+        },
+        {
+          "name": "genCopyList.sh",
+          "path": "dopamine/genCopyList.sh",
+          "purpose": "Prints filenames (fields/channel_test.$num) for a given index range, for building copy/rsync lists.",
+          "usage": "edit st/en/inter at top, run and redirect output.",
+          "tags": [
+            "utility"
+          ],
+          "note": "same template as CaNS/generateCopyList.sh \u2014 dup."
+        }
+      ]
+    },
+    {
+      "category": "stl2sdf",
+      "scripts": [
+        {
+          "name": "generateMultipleSDF.sh",
+          "path": "stl2sdf/generateMultipleSDF.sh",
+          "purpose": "Batch-generates signed distance fields for a building geometry at multiple rotation angles, converts output to CaNS array format, archives results per angle.",
+          "usage": "run in the stl2sdf project dir; edit runmat array of angles.",
+          "tags": [
+            "prep",
+            "pipeline"
+          ],
+          "note": ""
+        }
+      ]
+    },
+    {
+      "category": "uDALES",
+      "scripts": [
+        {
+          "name": "chunked_driver_animation.py",
+          "path": "uDALES/chunked_driver_animation.py",
+          "purpose": "Memory-efficient variant of the driver-file reader, same DriverFileReader API but with lazy/chunked/streaming reads for large datasets.",
+          "usage": "run directly; edit USER INPUT PARAMETERS in __main__.",
+          "tags": [
+            "postprocessing",
+            "analysis"
+          ],
+          "note": "duplicate/superset of read_driver_files.py \u2014 dup"
+        },
+        {
+          "name": "functions.py",
+          "path": "uDALES/functions.py",
+          "purpose": "Shared helper library for grid generation (tanh/geometric stretching), grid plotting, OBJ geometry merge/clip/rotate, processor decomposition.",
+          "usage": "import via 'from functions import gen_grid, round_to_multiple, plot_grid, get_decomp, getN'.",
+          "tags": [
+            "utility",
+            "template"
+          ],
+          "note": ""
+        },
+        {
+          "name": "gen_cases_pre_calculated_pre_processing.sh",
+          "path": "uDALES/gen_cases_pre_calculated_pre_processing.sh",
+          "purpose": "Generates numbered experiment directories for multiple wind angles, copying pre-computed geometry/IBM data and submit scripts.",
+          "usage": "edit angles/geo_location/geo_prefix/ibm_prefix/submit_jobs vars, run ./gen_cases_pre_calculated_pre_processing.sh.",
+          "tags": [
+            "prep",
+            "submission"
+          ],
+          "note": "near-duplicate of gen_submit_multiple_cases.sh \u2014 dup, assumes IBM pre-processing already done"
+        },
+        {
+          "name": "gen_submit_multiple_cases.sh",
+          "path": "uDALES/gen_submit_multiple_cases.sh",
+          "purpose": "Generates numbered experiment directories per angle (geometry only, no IBM data), copies config/namoptions/submit, optionally submits.",
+          "usage": "edit angles/driver_exp_num/exp_start_num/submit_jobs vars, run.",
+          "tags": [
+            "prep",
+            "submission"
+          ],
+          "note": "near-duplicate of gen_cases_pre_calculated_pre_processing.sh \u2014 dup"
+        },
+        {
+          "name": "grid_calculations.py",
+          "path": "uDALES/grid_calculations.py",
+          "purpose": "Computes recommended domain grid (Nx, Ny, Nz), processor decomposition, and stretching parameters for a uDALES case setup.",
+          "usage": "edit USER INPUT PARAMETERS block at top, run python grid_calculations.py.",
+          "tags": [
+            "prep"
+          ],
+          "note": ""
+        },
+        {
+          "name": "plot_fluid_boundary_points.py",
+          "path": "uDALES/plot_fluid_boundary_points.py",
+          "purpose": "Loads fluid_boundary_c.txt (IBM fluid boundary points) and scatter-plots point locations colored by a third column.",
+          "usage": "run from a directory containing fluid_boundary_c.txt.",
+          "tags": [
+            "postprocessing",
+            "analysis"
+          ],
+          "note": ""
+        },
+        {
+          "name": "pre_process_multiple.sh",
+          "path": "uDALES/pre_process_multiple.sh",
+          "purpose": "Sets up experiment directories from geometry files and runs uDALES's write_inputs.sh pre-processing (facet/IBM generation) inline, waiting for completion.",
+          "usage": "edit angles/geo_location/geo_prefix/exp_start_num/max_wait_time/uDALES_HOME vars, run.",
+          "tags": [
+            "prep",
+            "pipeline"
+          ],
+          "note": "produces IBM data consumed by gen_cases_pre_calculated_pre_processing.sh"
+        },
+        {
+          "name": "precursor_loglaw_check.py",
+          "path": "uDALES/precursor_loglaw_check.py",
+          "purpose": "Computes and plots the theoretical log-law velocity profile to validate/design precursor simulation boundary conditions.",
+          "usage": "edit Uref/Zref/z0/kappa/H/d constants at top, run; displays plot.",
+          "tags": [
+            "prep",
+            "analysis"
+          ],
+          "note": ""
+        },
+        {
+          "name": "read_driver_files.py",
+          "path": "uDALES/read_driver_files.py",
+          "purpose": "DriverFileReader class reading/collating uDALES precursor driver boundary-condition binaries across processors, then plots profiles/animation.",
+          "usage": "run directly; edit USER INPUT PARAMETERS in __main__ (experiment_number, nprocy, ny, nz, utau, etc).",
+          "tags": [
+            "postprocessing",
+            "analysis"
+          ],
+          "note": "near-identical to chunked_driver_animation.py \u2014 dup"
+        },
+        {
+          "name": "read_xytdump.py",
+          "path": "uDALES/read_xytdump.py",
+          "purpose": "Reads a uDALES xytdump.*.nc (horizontally-averaged) netCDF output and plots streamwise velocity profiles vs height.",
+          "usage": "edit filename/Uref/Zref/plot_index_start/avg_index_start at top, run.",
+          "tags": [
+            "postprocessing",
+            "analysis"
+          ],
+          "note": ""
+        },
+        {
+          "name": "submit.sh",
+          "path": "uDALES/submit.sh",
+          "purpose": "SLURM batch script (general cluster) that loads modules, runs uDALES pre-processing with a wait/poll loop, then runs the u-dales simulation binary.",
+          "usage": "sbatch submit.sh from an experiment directory.",
+          "tags": [
+            "submission",
+            "template"
+          ],
+          "note": "pairs with submit_snellius.sh (different cluster) \u2014 dup"
+        },
+        {
+          "name": "submit_snellius.sh",
+          "path": "uDALES/submit_snellius.sh",
+          "purpose": "SLURM batch script for Snellius cluster; loads Snellius modules and runs u-dales directly (no inline pre-processing/wait loop).",
+          "usage": "sbatch submit_snellius.sh.",
+          "tags": [
+            "submission",
+            "template"
+          ],
+          "note": "leaner variant of submit.sh, assumes pre-processing already done \u2014 dup"
+        },
+        {
+          "name": "time_average_snapshots_multiple_experiments.py",
+          "path": "uDALES/time_average_snapshots_multiple_experiments.py",
+          "purpose": "Batch time-averages fielddump.*.nc outputs across a decomposed grid for a range of experiment numbers, in parallel.",
+          "usage": "edit procx/procy/average_last_n/start_exp_num/end_exp_num/num_parallel_workers at top, run.",
+          "tags": [
+            "postprocessing",
+            "pipeline"
+          ],
+          "note": ""
+        },
+        {
+          "name": "time_calculations.py",
+          "path": "uDALES/time_calculations.py",
+          "purpose": "Computes precursor/driven-simulation timing parameters (friction velocity, eddy turnover time, convective time scale, precursor duration, driverstore count).",
+          "usage": "edit constants at top (dtmax, Tsim, H, Lb, Uref, Zref, z0, eddy_factor), run; prints results.",
+          "tags": [
+            "prep"
+          ],
+          "note": ""
+        },
+        {
+          "name": "visualise_zgrid.py",
+          "path": "uDALES/visualise_zgrid.py",
+          "purpose": "Loads a lscale.inp.<exp> vertical grid file and plots grid spacing vs height on a log scale.",
+          "usage": "edit filename at top, run; displays plot.",
+          "tags": [
+            "analysis"
+          ],
+          "note": "overlaps with plot_grid() in functions.py \u2014 dup"
+        },
+        {
+          "name": "write_uDALES_restart_file.py",
+          "path": "uDALES/write_uDALES_restart_file.py",
+          "purpose": "uDALESRestartWriter class writing uDALES binary restart/warmstart files per processor from field-data dictionaries, e.g. to bootstrap a run from GenIC velocity slices.",
+          "usage": "edit USER INPUT DATA (nx, ny, nz, exp_num, nprocx, nprocy, num_scalars) in __main__, run.",
+          "tags": [
+            "prep"
+          ],
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

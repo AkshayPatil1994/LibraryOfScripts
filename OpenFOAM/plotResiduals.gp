@@ -1,3 +1,9 @@
+# ---
+# purpose: Gnuplot script to plot 6 residual series (Ux,Uy,Uz,p,epsilon,k) vs time from a CSV.
+# usage: gnuplot -e "infile=...; outfile=..." plotResiduals.gp.
+# tags: analysis
+# note: overlaps with plotres.gp — dup.
+# ---
 # Set terminal and output based on argument
 if (exists("outfile")) {
     set terminal pngcairo size 1200,800 font "Arial,12"

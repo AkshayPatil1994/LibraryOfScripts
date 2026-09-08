@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: rsyncs simulation output field folder and run.log from numbered case dirs to a group storage location (intra-HPC).
+# usage: edit startindex/endindex/location inline.
+# tags: utility
+# ---
 
 startindex=1
 interval=1

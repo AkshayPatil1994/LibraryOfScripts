@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Shared bash helper library defining getlogdata() to extract solver residuals from a log file.
+# usage: source functions.sh, then call getlogdata logfile prefix.
+# tags: utility, template
+# note: canonical version of residual-extraction logic duplicated in fetch_allresiduals.sh/getResiduals.sh — dup.
+# ---
 
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   #
 #   FUNCTION TO GET RESIDUALS DATA FROM OPENFOAM LOGFILE    #

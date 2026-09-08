@@ -1,3 +1,9 @@
+# ---
+# purpose: Computes pedestrian wind-risk and TKE-risk maps across alpha/beta thresholds and z-heights from binary U/TKE files.
+# usage: python calculate_risk; edit casename/zindices/Uref inline.
+# tags: analysis
+# note: serial version of parallel_calculate_risk — dup.
+# ---
 import numpy as np
 from tqdm import tqdm
 #

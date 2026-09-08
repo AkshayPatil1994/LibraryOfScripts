@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Copies U/k result fields into numbered dirs for risk-map post-processing.
+# usage: edit simEndTime/startAngle/endAngle inline.
+# tags: utility, pipeline
+# ---
 simEndTime=3000 # Simulation end time
 startAngle=5   # Starting angle of the simulation
 endAngle=360    # Ending value of the angle

@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Bulk-creates Linux system users (with group, shell, disk quota, OpenFOAM env setup) from a username/password file, or previews them in test mode.
+# usage: edit config vars at top, then sudo ./create_users.sh; reads users.txt (username/password pairs) in cwd.
+# tags: utility, sec
+# note: expects plaintext users.txt and echoes passwords in test mode - lab-only, never commit users.txt.
+# ---
 
 # ============================================================
 # USER INPUT PARAMETERS

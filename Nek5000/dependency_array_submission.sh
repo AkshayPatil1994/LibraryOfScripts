@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Driver that prepares and submits a chain of dependent Nek5000 jobs, writing per-job .par files and submitting via SLURM dependency chain.
+# usage: edit numberOfJobs/startValue/siminterval/casename/nekcase/parfile at top, run in case dir; submit_jobs toggle for dry-run.
+# tags: submission, pipeline
+# note: orchestrates delftblue_submit.sh.
+# ---
 
 submit_jobs=1					# Set to 1 to submit jobs after creating input files
 numberOfJobs=20					# Total number of jobs to run i.e., siminterval*10 is the final end iterations

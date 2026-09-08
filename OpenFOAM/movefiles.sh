@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: Moves individual field files into a time-stamped subfolder per angle.
+# usage: edit startAngle/interval/endAngle inline.
+# tags: utility
+# ---
 startAngle=10     # Starting angle of the simulation
 interval=20       # Interval/increment between each angle
 endAngle=350       # Ending value of the angle

@@ -1,3 +1,8 @@
+# ---
+# purpose: Shared helper library for grid generation (tanh/geometric stretching), grid plotting, OBJ geometry merge/clip/rotate, processor decomposition.
+# usage: import via 'from functions import gen_grid, round_to_multiple, plot_grid, get_decomp, getN'.
+# tags: utility, template
+# ---
 import trimesh
 import numpy as np
 from trimesh.transformations import rotation_matrix

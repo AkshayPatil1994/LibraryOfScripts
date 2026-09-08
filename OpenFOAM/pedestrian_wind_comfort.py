@@ -1,3 +1,8 @@
+# ---
+# purpose: Computes NEN8100 pedestrian wind comfort class probabilities from simulated wind-speed binaries and historical wind data.
+# usage: run as script; edit wind_step/paths/z_comfort/thresholds inline.
+# tags: analysis, pipeline
+# ---
 ############################################
 # Script that calculates the Comfort Class #
 ############################################

@@ -1,3 +1,9 @@
+# ---
+# purpose: Generates Latin Hypercube samples of wind direction from historical wind data via inverse-CDF sampling.
+# usage: run as script; edit n_samples/wind_datafilename inline.
+# tags: prep, analysis
+# note: predecessor of lhs_mda_2d_comparison.py — dup.
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d

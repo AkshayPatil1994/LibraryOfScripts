@@ -1,3 +1,9 @@
+# ---
+# purpose: Memory-efficient variant of the driver-file reader, same DriverFileReader API but with lazy/chunked/streaming reads for large datasets.
+# usage: run directly; edit USER INPUT PARAMETERS in __main__.
+# tags: postprocessing, analysis
+# note: duplicate/superset of read_driver_files.py — dup
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 import struct

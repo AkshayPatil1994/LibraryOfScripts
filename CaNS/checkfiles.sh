@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Verifies presence of expected velocity field binary output files (vex/vey/vez) over a numbered range to spot missing/incomplete output.
+# usage: edit start/end/interval at top, run from case dir (expects data/ subfolder).
+# tags: postprocessing, utility
+# note: same template as dopamine/checkfiles.sh, different file-naming convention — dup.
+# ---
 
 start=1000 	# Starting index of the file
 end=160000	# Ending index of the file

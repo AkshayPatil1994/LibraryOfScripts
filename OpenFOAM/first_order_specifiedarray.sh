@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---
+# purpose: SLURM job running 1st-order simpleFoam only for an explicit hand-picked list of angles.
+# usage: sbatch first_order_specifiedarray.sh; edit simangles array.
+# tags: submission
+# ---
 
 #SBATCH --job-name="lod1p2"		# Name of the job for checking
 #SBATCH --time=64:00:00			# Wall clock time requested

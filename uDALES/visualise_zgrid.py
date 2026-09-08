@@ -1,3 +1,9 @@
+# ---
+# purpose: Loads a lscale.inp.<exp> vertical grid file and plots grid spacing vs height on a log scale.
+# usage: edit filename at top, run; displays plot.
+# tags: analysis
+# note: overlaps with plot_grid() in functions.py — dup
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 

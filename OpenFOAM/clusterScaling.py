@@ -1,3 +1,8 @@
+# ---
+# purpose: Plots parallel scaling (speedup/efficiency) from per-core-count timing logs (cpuN.dat files).
+# usage: run as script in dir containing cpuN.dat files.
+# tags: analysis
+# ---
 # Import libraries
 import numpy as np
 import matplotlib.pyplot as plt

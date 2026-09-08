@@ -1,3 +1,8 @@
+# ---
+# purpose: Generates/loads uniformly distributed 3D sampling points within a bounding box and plots them against a building mesh.
+# usage: run as script; edit ximin/ximax/obj_file_path/flags inline.
+# tags: prep, utility
+# ---
 from functions import generate_uniform_points, load_obj, plot_mesh_and_points, fixPlot
 import numpy as np
 #

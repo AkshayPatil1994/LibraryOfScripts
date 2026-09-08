@@ -1,3 +1,8 @@
+# ---
+# purpose: Prompts for a URL and generates/saves a QR code image for it.
+# usage: python3 generate_qrcode.py, then enter link at prompt; outputs qrcode.png.
+# tags: utility
+# ---
 import qrcode
 
 def generate_qr_code(link, output_file="qrcode.png"):

@@ -1,3 +1,9 @@
+# ---
+# purpose: DriverFileReader class reading/collating uDALES precursor driver boundary-condition binaries across processors, then plots profiles/animation.
+# usage: run directly; edit USER INPUT PARAMETERS in __main__ (experiment_number, nprocy, ny, nz, utau, etc).
+# tags: postprocessing, analysis
+# note: near-identical to chunked_driver_animation.py — dup
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 import struct

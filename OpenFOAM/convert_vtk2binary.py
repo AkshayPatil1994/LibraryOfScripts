@@ -1,3 +1,9 @@
+# ---
+# purpose: Converts VTK cutting-plane U/k fields to flat binary files per height/angle (local cluster layout).
+# usage: edit casename/paths inline, run as script.
+# tags: postprocessing, pipeline
+# note: near-duplicate of convert_vtk2binary_snellius.py — dup, differs in source path layout and z-levels.
+# ---
 from vtk.util.numpy_support import vtk_to_numpy
 from vtk import vtkPolyDataReader
 import numpy as np

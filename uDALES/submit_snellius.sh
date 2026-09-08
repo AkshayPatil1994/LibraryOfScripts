@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: SLURM batch script for Snellius cluster; loads Snellius modules and runs u-dales directly (no inline pre-processing/wait loop).
+# usage: sbatch submit_snellius.sh.
+# tags: submission, template
+# note: leaner variant of submit.sh, assumes pre-processing already done — dup
+# ---
 
 #SBATCH --job-name="les_002" 		# Name of the job for checking
 #SBATCH --time=48:00:00		        # Wall clock time requested hh:mm:ss

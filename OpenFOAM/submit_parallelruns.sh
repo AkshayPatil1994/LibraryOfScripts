@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Generic/templated SLURM job script with placeholder account/partition/OpenFOAM path values.
+# usage: sbatch submit_parallelruns.sh after filling in placeholders.
+# tags: submission, template
+# note: sanitized template version of submit_1storder.sh — dup.
+# ---
 
 #SBATCH --job-name="jobname"		# Name of the job for checking
 #SBATCH --time=04:30:00			# Wall clock time requested

@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Prints filenames (fields/channel_test.$num) for a given index range, for building copy/rsync lists.
+# usage: edit st/en/inter at top, run and redirect output.
+# tags: utility
+# note: same template as CaNS/generateCopyList.sh — dup.
+# ---
 
 st=483500	# Starting index of the file
 en=528500	# Ending index of the file

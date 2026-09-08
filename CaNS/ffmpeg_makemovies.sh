@@ -1,3 +1,9 @@
+# ---
+# purpose: Reference cookbook of ffmpeg one-liners (renaming, movie from image sequence, slow-motion, stacking, GIF) — not meant to run top-to-bottom.
+# usage: copy/paste individual commands as needed, edit filenames per use.
+# tags: postprocessing, utility, template
+# ---
+
 # A short list of ffmpeg and file rename routines that are useful
 
 # Padd zeros to a figure that is not correctly named

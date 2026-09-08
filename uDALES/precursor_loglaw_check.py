@@ -1,3 +1,8 @@
+# ---
+# purpose: Computes and plots the theoretical log-law velocity profile to validate/design precursor simulation boundary conditions.
+# usage: edit Uref/Zref/z0/kappa/H/d constants at top, run; displays plot.
+# tags: prep, analysis
+# ---
 import numpy as np
 import matplotlib.pyplot as plt
 import warnings

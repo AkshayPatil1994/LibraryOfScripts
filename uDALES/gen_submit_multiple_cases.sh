@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: Generates numbered experiment directories per angle (geometry only, no IBM data), copies config/namoptions/submit, optionally submits.
+# usage: edit angles/driver_exp_num/exp_start_num/submit_jobs vars, run.
+# tags: prep, submission
+# note: near-duplicate of gen_cases_pre_calculated_pre_processing.sh — dup
+# ---
 # Define all angles to be setup for pre-processing seperated by a comma (",")
 angles="5,10,15,20"								# Angles to be run (this reads geometry files titled campus_5.stl and so on
 driver_exp_num=1								# Driver experiment number

@@ -1,4 +1,10 @@
 #!/bin/bash
+# ---
+# purpose: SLURM batch script (general cluster) that loads modules, runs uDALES pre-processing with a wait/poll loop, then runs the u-dales simulation binary.
+# usage: sbatch submit.sh from an experiment directory.
+# tags: submission, template
+# note: pairs with submit_snellius.sh (different cluster) — dup
+# ---
 
 #SBATCH --job-name="les_002"            # Name of the job for checking
 #SBATCH --time=00:30:00                 # Wall clock time requested hh:mm:ss
